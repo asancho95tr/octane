@@ -103,6 +103,9 @@ dist
 # vuepress v2.x temp and cache directory
 .temp
 .cache
+.angular
+Octane.app
+*.DS_Store
 
 # Docusaurus cache and generated files
 .docusaurus
