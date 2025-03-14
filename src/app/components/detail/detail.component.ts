@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { DETAIL_HEADERS } from '../../models/report-headers.enum';
+import { DETAIL_HEADERS, ReportHeaders } from '../../models/report-headers.enum';
 
 @Component({
 	selector: 'app-detail',
@@ -14,6 +14,8 @@ export class DetailComponent {
 	get headers(): string[] {
 		return DETAIL_HEADERS;
 	}
+
+	ReportHeaders = ReportHeaders;
 
 	get dataSource() {
 		return new MatTableDataSource(this.element);

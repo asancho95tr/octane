@@ -1,7 +1,7 @@
 export const HEADERS = ["ID", "Release", "Sprint", "Remaining hours", "Estimated hours", "Invested hours", "Has attachments", "Tags", "Blocked", "Priority", "Feature", "Name", "Description", "Phase", "Progress", "Story points", "Team", "Fixed in build", "Creation time", "Blocked reason", "Linked items1", "Author", "Last modified", "Owner", "Type"];
-export const REPORT_HEADERS = ["Ciclo", "Sprint", "Sin estimar", "Con ETC", "Sin incurrir", "Abiertas", "Sin asignado", "Estimado vs incurrido", "Bugs", "Número defectos encontrados", "Ceremonias", "Eficiencia"];
-export const DETAIL_HEADERS = ["ID", "Feature", "Team", "Tags", "Name", "Owner", "Story points", "Remaining hours", "Estimated hours", "Invested hours", "Phase"]
-export const EFFICIENY_HEADERS = ["Tareas sin sprint", "Eficiencia"]
+export const REPORT_HEADERS = ["Ciclo", "Sprint", "Sin estimar", "Con ETC", "Sin incurrir", "Abiertas", "Sin asignado", "Estimado=Incurrido", "Bugs", "Número defectos encontrados", "Ceremonias", "Estimado vs incurrido"];
+export const DETAIL_HEADERS = ["ID", "Feature", "Team", "Tags", "Name", "Owner", "Story points", "Remaining hours", "Estimated hours", "Invested hours", "Phase", "Estimado vs incurrido"]
+export const EFFICIENY_HEADERS = ["Tareas sin sprint", "Estimado vs incurrido"]
 export const TEAM_EFICIENCY_HEADERS = [
     {
         name: "member",
@@ -13,7 +13,7 @@ export const TEAM_EFICIENCY_HEADERS = [
     },
     {
         name: "eficiency",
-        text: "Eficiencia"
+        text: "Estimado vs incurrido"
     }
 ]
 
@@ -69,9 +69,9 @@ export enum ReportHeaders {
     NO_INVESTED = "Sin incurrir", 
     OPENED = "Abiertas", 
     NO_ASIGNED = "Sin asignado",
-    ESTIMATED_VS_INVESTED = "Estimado vs incurrido", 
+    ESTIMATED_VS_INVESTED = "Estimado=Incurrido", 
     BUGS = "Bugs", 
     CEREMONIES = "Ceremonias", 
-    EFICIENCY = "Eficiencia",
+    EFICIENCY = "Estimado vs incurrido",
     DETECTED_DEFECTS = "Numero defectos encontrados"
 }

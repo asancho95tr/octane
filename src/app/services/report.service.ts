@@ -49,8 +49,12 @@ export class ReportService {
 
 	private _getReportData(data: any, sprints: string[]): any[] {
 		return sprints.map((sprint: string) => {
-			const itemsSprint: any[] = data.filter((element: any) => this._getValueByProperty(element, HeadersToCheck.SPRINT) === sprint);
-
+			const itemsSprint: any[] = data.filter((element: any) => this._getValueByProperty(element, HeadersToCheck.SPRINT) === sprint).map((element: any) => {
+				return {
+					...element,
+					"Estimado vs incurrido": this._getEficiency([element], true).eficiency
+				}
+			});
 			//Cálculos
 			const estimatedSum: number = itemsSprint.map((element: any) => this._getValueByProperty(element, HeadersToCheck.ESTIMATED)).reduce((sum: number, current: number) => sum + current, 0);
 			const remainingSum: number = itemsSprint.map((element: any) => this._getValueByProperty(element, HeadersToCheck.REMAINING)).reduce((sum: number, current: number) => sum + current, 0);
@@ -72,6 +76,7 @@ export class ReportService {
 			const detectedDefects: any[] = itemsSprint.filter((element: any) => this._propertyExists(element, HeadersToCheck.DETECTED_DEFECTS));
 			const detectedDefectsCount: number = detectedDefects.map((value: any) => value[HeadersToCheck.DETECTED_DEFECTS]).reduce((sum: number, current: number) => sum + current, 0);
 			const ceremonies: any[] = itemsSprint.filter((element: any) => CEREMONIES.includes(this._getValueByProperty(element, HeadersToCheck.NAME, true)));
+
 			return {
 				Ciclo: { value: itemsSprint[0][HeadersToCheck.CICLO] ?? '-' },
 				Sprint: { value: sprint },
@@ -85,15 +90,15 @@ export class ReportService {
 				Abiertas_data: openedData,
 				"Sin asignado": { value: noAsignedData.length, class: this._getClass(noAsignedData.length, ReportHeaders.NO_ASIGNED)},
 				"Sin asignado_data": noAsignedData,
-				"Estimado vs incurrido": { value: estimatedVsInvested.length, class: this._getClass(estimatedVsInvested.length, ReportHeaders.ESTIMATED_VS_INVESTED)}, 
-				"Estimado vs incurrido_data": estimatedVsInvested, 
+				"Estimado=Incurrido": { value: estimatedVsInvested.length, class: this._getClass(estimatedVsInvested.length, ReportHeaders.ESTIMATED_VS_INVESTED)}, 
+				"Estimado=Incurrido_data": estimatedVsInvested, 
 				Bugs: { value: bugs.length, class: this._getClass(bugs.length, ReportHeaders.BUGS)}, 
 				Bugs_data: bugs,
 				"Número defectos encontrados": { value: detectedDefectsCount, class: this._getClass(detectedDefectsCount, ReportHeaders.DETECTED_DEFECTS) },
 				"Número defectos encontrados_data": detectedDefects,
 				Ceremonias: { value: ceremonies.length, class: this._getClass(ceremonies.length, ReportHeaders.CEREMONIES)},
 				Ceremonias_data: ceremonies,
-				Eficiencia: { value: this._percentPipe.transform(eficiency, '1.2-2'), class: this._getClass(eficiency * 100, ReportHeaders.EFICIENCY)}
+				"Estimado vs incurrido": { value: this._percentPipe.transform(eficiency, '1.2-2'), class: this._getClass(eficiency * 100, ReportHeaders.EFICIENCY)}
 			}
 		});
 	}
@@ -110,17 +115,18 @@ export class ReportService {
 		return eficiency;
 	}
 
-	private _getEficiency(data: any): Eficiency {
-		const doneOrClosed: any = data.filter((element: any) => /*element[HeadersToCheck.TYPE] === NAME_MAIN_TYPE &&*/ (ENDED_PHASES.includes(element[HeadersToCheck.PHASE]) || ENDED_PHASES.includes(element[HeadersToCheck.STATUS])));
-		const estimated: number = doneOrClosed.map((element: any) => element[HeadersToCheck.ESTIMATED]).reduce((sum: number, current: number) => sum + current, 0);
-		const invested: number = doneOrClosed.map((element: any) => element[HeadersToCheck.INVESTED]).reduce((sum: number, current: number) => sum + current, 0);
-		const eficieny: number = ((estimated > 0 && invested > 0) ? estimated/invested : 0);
+	private _getEficiency(data: any, allowInProgress: boolean = false): Eficiency {
+		const itemsToCheck = (allowInProgress) ? data :data.filter((element: any) => /*element[HeadersToCheck.TYPE] === NAME_MAIN_TYPE &&*/ (ENDED_PHASES.includes(element[HeadersToCheck.PHASE]) || ENDED_PHASES.includes(element[HeadersToCheck.STATUS])));
+		const estimated: number = itemsToCheck.map((element: any) => element[HeadersToCheck.ESTIMATED]).reduce((sum: number, current: number) => sum + current, 0);
+		const invested: number = itemsToCheck.map((element: any) => element[HeadersToCheck.INVESTED]).reduce((sum: number, current: number) => sum + current, 0);
+		const remaining: number = itemsToCheck.map((element: any) => element[HeadersToCheck.REMAINING]).reduce((sum: number, current: number) => sum + current, 0);
+		const eficiency: number = ((estimated > 0 && invested > 0) ? estimated/(allowInProgress? invested + remaining : invested) : 0);
 		const tasksWithoutSprint: any[] = data.filter((i: any) => !this._getValueByProperty(i, HeadersToCheck.SPRINT) || this._getValueByProperty(i, HeadersToCheck.SPRINT) === '');
 		const countWithoutSprint:number = tasksWithoutSprint.length;
 		return {
-			eficiency: { value: this._percentPipe.transform(eficieny, '1.2-2') ?? '-', class: this._getClass(eficieny * 100, ReportHeaders.EFICIENCY)},
-			doneOrClosed_data: doneOrClosed,
-			doneOrClosed: { value: doneOrClosed.length, class: 'right' },
+			eficiency: { value: this._percentPipe.transform(eficiency, '1.2-2') ?? '-', class: this._getClass(eficiency * 100, ReportHeaders.EFICIENCY)},
+			doneOrClosed_data: itemsToCheck,
+			doneOrClosed: { value: itemsToCheck.length, class: 'right' },
 			tasksWithoutSprint: { value: countWithoutSprint, class: 'right' },
 			tasksWithoutSprint_data: tasksWithoutSprint
 		}

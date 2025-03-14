@@ -15,10 +15,10 @@ export interface ProjectConfiguration {
 
 export const KeysText: any = {
     "ceremonias": "Tareas tipo",
-    "minEstimacionVsInvertido": "Estimado vs incurrido",
+    "minEstimacionVsInvertido": "Estimado=Incurrido",
     "nombreTipoPrincipal": "Valor tipo tarea principal",
     "nombreTipoBug": "Valor tipo tarea bug",
     "fasesTerminadas": "Fases terminadas",
-    "eficiencia": "% Eficiencia",
+    "eficiencia": "% Estimado vs incurrido",
     "ratioBugs": "Ratio bugs"
 }

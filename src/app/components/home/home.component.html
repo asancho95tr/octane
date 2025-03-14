@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <th>
-                    Eficiencia
+                    Estimado vs incurrido
                 </th>
                 <td class="{{reportService.reportImported.eficiency.eficiency.class}}">
                     <span>{{reportService.reportImported.eficiency.eficiency.value}}</span>
@@ -50,7 +50,7 @@
             </tr>
         </table>
         <table mat-table [dataSource]="teamDataSource">
-            <caption>Eficiencia por persona</caption>
+            <caption>Tareas por persona</caption>
             <ng-container *ngFor="let header of reportService.reportImported.eficiencyHeaders">
                 <ng-container [matColumnDef]="header.name">
                     <th mat-header-cell *matHeaderCellDef>
