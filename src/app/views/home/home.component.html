@@ -1,0 +1,42 @@
+<div class="header">
+  <div>
+    <input
+      hidden
+      type="file"
+      class="file-input"
+      (change)="fileSelected($event.target)"
+      #fileImported
+    />
+    <button
+      type="button"
+      color="primary"
+      mat-raised-button
+      (click)="fileImported.click()"
+    >
+      <mat-icon *ngIf="!isImported()">cloud_upload</mat-icon>
+      <mat-icon *ngIf="isImported()">cloud_done</mat-icon>
+      Importar backlog
+    </button>
+  </div>
+  <button mat-button color="primary" [routerLink]="'setup'">
+    Configuración
+  </button>
+</div>
+<div class="container" *ngIf="isImported() && report() as report">
+  <app-backlog
+    [data]="report.backlog"
+    (select)="loadDetail($event)"
+  ></app-backlog>
+  <app-project
+    [data]="report.project"
+    (select)="loadDetail($event)"
+  ></app-project>
+  <app-team [data]="report.team" (select)="loadDetail($event)"></app-team>
+</div>
+
+<div class="detail">
+  <app-detail
+    *ngIf="showDetail() && detail() as detail"
+    [data]="detail"
+  ></app-detail>
+</div>
