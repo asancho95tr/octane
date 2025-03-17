@@ -14,16 +14,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'octane-v2' title`, () => {
+  it(`should have the 'octane' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('octane-v2');
+    expect(app.title).toEqual('octane');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, octane-v2');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Hello, octane'
+    );
   });
 });

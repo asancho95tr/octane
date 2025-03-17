@@ -5,7 +5,7 @@ import { HeadersType } from '@models/enums/headers-type.enum';
   name: 'appData',
 })
 export class DataPipe implements PipeTransform {
-  transform(value: string | number, type: string, ...args: string[]) {
+  transform(value: string | number, type: string) {
     switch (type) {
       case HeadersType.PERCENT:
         return `${(Number(value) * 100).toFixed(2)}%`;

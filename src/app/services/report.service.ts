@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FileService } from '@core/file.service';
 import { HeadersToCheck } from '@models/enums/headers-to-check.enum';
 import { OctaneReport } from '@models/interfaces/octane-report.model';
@@ -7,7 +7,6 @@ import { map, Observable } from 'rxjs';
 import { ReportBaseService } from './report-base.service';
 import { ReportBacklogService } from './report-backlog.service';
 import { ReportProjectService } from './report-project.service';
-import { TEAM_EFICIENCY_HEADERS } from '@utils/static.data';
 import { ReportTeamService } from './report-team.service';
 
 @Injectable({

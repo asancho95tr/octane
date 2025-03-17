@@ -11,7 +11,6 @@ import {
   NAME_BUG_TYPE,
 } from '@utils/config.data';
 import { BaseTable } from '@models/interfaces/base-table.model';
-import { BaseItem } from '@models/interfaces/base-item.model';
 import { ReportHeaders } from '@models/enums/report-headers.enum';
 
 @Injectable({

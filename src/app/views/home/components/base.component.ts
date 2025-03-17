@@ -15,7 +15,10 @@ import { BaseTable } from '@models/interfaces/base-table.model';
 })
 export class HomeBaseComponent {
   @Input({ required: true }) data!: BaseTable;
-  @Output() select = new EventEmitter<any>();
+  @Output() selectCell = new EventEmitter<{
+    item: BaseItem;
+    property: string;
+  }>();
 
   get headersNames() {
     return this.data.headers.map((header) => header.value);
@@ -24,6 +27,6 @@ export class HomeBaseComponent {
   HeadersType = HeadersType;
 
   selectData(item: BaseItem, property: string) {
-    this.select.emit({ item, property });
+    this.selectCell.emit({ item, property });
   }
 }

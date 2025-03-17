@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReportBaseService } from './report-base.service';
 import { Efficiency } from '@models/interfaces/efficiency.model';
 import { Row } from '@models/interfaces/row.model';
-import {
-  BaseTable,
-  EfficiencyTable,
-} from '@models/interfaces/base-table.model';
+import { EfficiencyTable } from '@models/interfaces/base-table.model';
 import { EFFICIENY_HEADERS } from '@utils/static.data';
 
 @Injectable({

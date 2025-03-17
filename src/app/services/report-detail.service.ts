@@ -6,7 +6,6 @@ import { DETAIL_HEADERS } from '@utils/static.data';
 import { HeadersToCheck } from '@models/enums/headers-to-check.enum';
 import { Header } from '@models/interfaces/header.model';
 import { BaseItem } from '@models/interfaces/base-item.model';
-import { elementAt } from 'rxjs';
 
 type HeaderMap = Record<string, string>;
 

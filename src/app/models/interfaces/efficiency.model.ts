@@ -1,5 +1,4 @@
 import { BaseItem } from './base-item.model';
-import { Row } from './row.model';
 
 export interface Efficiency {
   tasksWithoutSprint: BaseItem;
