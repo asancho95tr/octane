@@ -2,9 +2,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   OnChanges,
-  Output,
   signal,
   WritableSignal,
 } from '@angular/core';

@@ -113,9 +113,8 @@ export class ReportBaseService {
         classes = value < CEREMONIES.length ? 'need_work' : '';
         break;
       case ReportHeaders.EFFICIENCY:
-        const percent: number = value * 100;
         classes =
-          percent < 100 - EFICIENCY || percent > 100 + EFICIENCY
+          value * 100 < 100 - EFICIENCY || value * 100 > 100 + EFICIENCY
             ? 'need_work'
             : 'done';
         break;
