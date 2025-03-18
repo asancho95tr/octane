@@ -25,13 +25,16 @@
 <div class="container" *ngIf="isImported() && report() as report">
   <app-backlog
     [data]="report.backlog"
-    (select)="loadDetail($event)"
+    (selectCell)="loadDetail($event.item, $event.property)"
   ></app-backlog>
-  <app-project
-    [data]="report.project"
-    (select)="loadDetail($event)"
-  ></app-project>
-  <app-team [data]="report.team" (select)="loadDetail($event)"></app-team>
+  <div class="container__eficiency">
+    <app-project
+      class="container__eficiency__project"
+      [data]="report.project"
+      (selectCell)="loadDetail($event.item, $event.property)"
+    ></app-project>
+    <app-team [data]="report.team" (selectCell)="loadDetail($event.item, $event.property)"></app-team>
+  </div>
 </div>
 
 <div class="detail">

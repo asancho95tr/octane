@@ -38,6 +38,9 @@ table {
     border-radius: 5px 5px 0 0 !important;
   }
   tr {
+    &:hover {
+      background-color: lightgoldenrodyellow;
+    }
     th {
       font-weight: 500;
       background-color: #e2efda !important;
@@ -47,6 +50,10 @@ table {
       border-left: 1px solid lightgrey !important;
       &:last-of-type {
         border-right: 1px solid lightgrey !important;
+      }
+      a {
+        width: 100%;
+        display: block;
       }
     }
     &:last-of-type {

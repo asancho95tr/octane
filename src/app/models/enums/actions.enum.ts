@@ -1,5 +1,5 @@
 export enum Actions {
-  IMPORT = 0,
-  LOAD = 1,
-  DELETE = 2,
+  IMPORT = 1,
+  LOAD = 2,
+  DELETE = 3,
 }

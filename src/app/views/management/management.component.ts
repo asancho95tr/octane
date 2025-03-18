@@ -6,12 +6,16 @@ import {
   OnInit,
   signal,
   ViewChild,
+  WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButton } from '@angular/material/button';
+import { MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { ConfigService } from '@core/config.service';
@@ -34,16 +38,21 @@ import { KeysText } from '@utils/static.data';
     NgIf,
     NgFor,
     FormsModule,
-    MatButtonToggleModule,
+    MatButton,
+    MatButtonToggleGroup,
+    MatButtonToggle,
     MatIcon,
     MatFormField,
     MatLabel,
+    MatSelect,
     MatOption,
     MatTableModule,
+    MatInput,
+    MatButtonToggleModule,
   ],
 })
 export class ManagementComponent implements OnInit {
-  config: Actions = Actions.IMPORT;
+  config: WritableSignal<Actions> = signal(Actions.IMPORT);
   projectName?: string;
   selectedProject?: string;
   list: ProjectConfiguration[] = [];
@@ -65,6 +74,10 @@ export class ManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshList();
+  }
+
+  setConfig(config: Actions) {
+    this.config.set(config);
   }
 
   refreshList() {
@@ -145,7 +158,7 @@ export class ManagementComponent implements OnInit {
   }
 
   refreshTable() {
-    switch (this.config) {
+    switch (this.config()) {
       case Actions.IMPORT:
         this.selectedConfiguration = getCurrentConfig();
         break;

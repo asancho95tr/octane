@@ -12,6 +12,7 @@ import {
 } from '@utils/config.data';
 import { BaseTable } from '@models/interfaces/base-table.model';
 import { ReportHeaders } from '@models/enums/report-headers.enum';
+import { Header } from '@models/interfaces/header.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class ReportBacklogService extends ReportBaseService {
   getBacklog(data: Row[], sprints: string[]): BaseTable {
     return {
       name: 'Tareas',
-      headers: REPORT_HEADERS,
+      headers: REPORT_HEADERS.filter((header: Header) => !header.hidden),
       rows: sprints.map((sprint: string) => {
         const itemsSprint: Row[] = this.#getItemsBySprint(data, sprint);
         //Cálculos

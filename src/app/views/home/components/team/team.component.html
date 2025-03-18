@@ -13,9 +13,10 @@
         mat-cell
         *matCellDef="let item"
         class="table__rows {{ item[header.value].class }}"
-        [ngClass]="{ selectable: item[header.value].value !== undefined }"
+        [ngClass]="{ selectable: item[header.value]?.value !== undefined && item[header.value]?.value.length > 0 }"
+        (click)="selectData(item, header.value)"
       >
-        <div (click)="selectData(item, header.value)">
+        <div>
           <span>{{ item[header.value]?.text | appData : header.type }}</span>
         </div>
       </td>

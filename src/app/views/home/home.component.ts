@@ -16,8 +16,8 @@ import { HomeProjectComponent } from './components/project/project.component';
 import { HomeTeamComponent } from './components/team/team.component';
 import { HomeDetailComponent } from './components/detail/detail.component';
 import { BaseTable } from '@models/interfaces/base-table.model';
-import { Row } from '@models/interfaces/row.model';
 import { ReportDetailService } from '@services/report-detail.service';
+import { BaseItem } from '@models/interfaces/base-item.model';
 
 @Component({
   selector: 'app-home',
@@ -59,11 +59,10 @@ export class HomeComponent {
     }
   }
 
-  loadDetail(event: { item: Row; property: string }) {
-    const item = event.item;
-    const property = event.property;
+  loadDetail(item: BaseItem, property: string) {
+    this.showDetail.set(false);
     const rows = (item as any)[property].value;
-    this.detail.set(this._reportDetailService.getDetails(rows));
+    this.detail.set(this._reportDetailService.getDetails(rows ?? []));
     this.showDetail.set(true);
   }
 }

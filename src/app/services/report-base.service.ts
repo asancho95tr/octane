@@ -4,6 +4,7 @@ import { ReportHeaders } from '@models/enums/report-headers.enum';
 import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
 import { BaseItem } from '@models/interfaces/base-item.model';
 import { Efficiency } from '@models/interfaces/efficiency.model';
+import { Header } from '@models/interfaces/header.model';
 import { Row } from '@models/interfaces/row.model';
 import {
   CEREMONIES,
@@ -112,14 +113,43 @@ export class ReportBaseService {
         classes = value < CEREMONIES.length ? 'need_work' : '';
         break;
       case ReportHeaders.EFFICIENCY:
+        const percent: number = value * 100;
         classes =
-          value < 100 - EFICIENCY || value > 100 + EFICIENCY
+          percent < 100 - EFICIENCY || percent > 100 + EFICIENCY
             ? 'need_work'
             : 'done';
         break;
       case ReportHeaders.DETECTED_DEFECTS:
         classes = value === 0 ? 'need_work' : 'done';
+        break;
     }
     return `right ${classes}`;
   }
+
+  transformRows<T extends Record<string, any>>(
+    rows: T[],
+    headers: Header[]
+  ): Record<string, BaseItem>[] {
+    // Crear un mapa de las cabeceras para facilitar la conversión
+    const headerMap: HeaderMap = Object.fromEntries(
+      headers.map((h) => [h.text, h.value])
+    );
+
+    return rows.map((row) => {
+      const transformedRow: Record<string, BaseItem> = {};
+
+      for (const key in row) {
+        const newKey = headerMap[key] || key; // Si no hay mapeo, mantener la clave original
+        if (!transformedRow[newKey] && row[key]?.text === undefined) {
+          transformedRow[newKey] = { text: row[key] };
+        } else {
+          transformedRow[newKey] = row[key];
+        }
+      }
+
+      return transformedRow;
+    });
+  }
 }
+
+type HeaderMap = Record<string, string>;
