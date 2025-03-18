@@ -1,59 +1,90 @@
-# OctaneV2
+# Importación y Análisis de Excel desde Octane ALM
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+Este proyecto Angular tiene como objetivo permitir la importación de archivos Excel exportados desde Octane ALM, procesarlos y visualizar un reporte detallado de las tareas organizadas por sprints. La aplicación facilita el análisis de las tareas para detectar áreas de mejora, como tareas sin estimar, no asignadas, sin tiempo invertido, no cerradas y una comparación porcentual entre el tiempo estimado y el tiempo invertido.
 
-## Development server
+## Características
 
-To start a local development server, run:
+- **Importación de Excel**: La aplicación permite importar un archivo Excel exportado desde Octane ALM.
+- **Reporte Organizado por Sprints**: Muestra un resumen de las tareas organizadas por sprints para facilitar el seguimiento del progreso.
+- **Detección de Tareas**:
+  - Tareas que no tienen estimación de tiempo.
+  - Tareas no asignadas a ningún trabajador.
+  - Tareas sin tiempo invertido.
+  - Tareas no cerradas.
+  - Comparación porcentual entre el tiempo estimado y el tiempo invertido.
+- **Análisis por Persona**: Muestra el tiempo estimado vs el tiempo invertido para cada persona asignada a las tareas.
+- **Interactividad**:
+  - Al hacer clic en cualquier celda de la tabla (por ejemplo, el número de tareas sin asignación), se mostrará una tabla detallada en la parte inferior con las tareas específicas.
+  - La tabla incluirá enlaces a Octane ALM para ver más detalles sobre cada tarea.
 
-```bash
-ng serve
-```
+## Requisitos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Node.js**: Necesario para gestionar las dependencias del proyecto.
+- **Angular CLI**: Framework utilizado para el desarrollo de la aplicación.
 
-## Code scaffolding
+## Instalación
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Clonar el repositorio**:
 
-```bash
-ng generate component component-name
-```
+   ```bash
+   git clone https://github.com/asancho95tr/octane.git
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+2. **Instalar dependencias**:
+   Navega al directorio del proyecto y ejecuta el siguiente comando para instalar las dependencias necesarias.
 
-```bash
-ng generate --help
-```
+   ```bash
+   npm install
+   ```
 
-## Building
+3. **Ejecutar el servidor de desarrollo**:
+   Para iniciar la aplicación en modo desarrollo, ejecuta el siguiente comando:
+   ```bash
+   npm run start
+   ```
+   La aplicación estará disponible en [http://localhost:4300](http://localhost:4300).
 
-To build the project run:
+## Uso
 
-```bash
-ng build
-```
+1. **Importación de Excel**:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+   - Haz clic en el botón "Importar backlog" en la interfaz de usuario.
+   - Selecciona el archivo Excel exportado desde Octane ALM.
+   - Los datos se cargarán y procesarán para su visualización.
 
-## Running unit tests
+2. **Navegación en el Reporte**:
+   - Las tareas se muestran organizadas por sprints.
+   - Las tareas que no han sido estimadas, no están asignadas, tienen tiempo sin invertir, o no han sido cerradas estarán destacadas.
+   - La comparación porcentual entre el tiempo estimado y el tiempo invertido estará visible para cada tarea.
+3. **Interacción con el Reporte**:
+   - Al hacer clic en cualquier celda de la tabla (por ejemplo, el número de tareas sin asignación), se mostrará una tabla detallada en la parte inferior con las tareas específicas.
+   - La tabla incluirá enlaces a Octane ALM para ver más detalles sobre cada tarea.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Scripts de Desarrollo
 
-```bash
-ng test
-```
+El proyecto está configurado con varios scripts útiles para facilitar el desarrollo:
 
-## Running end-to-end tests
+- **`npm run start`**: Inicia el servidor de desarrollo en el puerto 4300.
+- **`npm run lint`**: Ejecuta el análisis de linting y arregla problemas automáticamente si es posible.
 
-For end-to-end (e2e) testing, run:
+## Tecnologías Utilizadas
 
-```bash
-ng e2e
-```
+- **Angular**: Framework para el desarrollo de la aplicación web.
+- **Angular Material**: Librería para la interfaz de usuario (UI).
+- **xlsx**: Librería para manejar la importación y lectura de archivos Excel.
+- **ngx-toastr**: Para notificaciones de éxito o error.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Contribuciones
 
-## Additional Resources
+Si deseas contribuir al proyecto, por favor sigue estos pasos:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Haz un fork del repositorio.
+2. Crea una rama nueva para tus cambios (`git checkout -b nueva-funcionalidad`).
+3. Realiza los cambios y asegúrate de que todos los tests pasen.
+4. Haz commit de tus cambios (`git commit -am 'Añadir nueva funcionalidad'`).
+5. Sube tu rama (`git push origin nueva-funcionalidad`).
+6. Abre un Pull Request en GitHub.
+
+---
+
+¡Gracias por usar el proyecto! Si tienes alguna duda o sugerencia, no dudes en abrir un issue en GitHub.
