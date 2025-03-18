@@ -66,6 +66,7 @@ El proyecto está configurado con varios scripts útiles para facilitar el desar
 
 - **`npm run start`**: Inicia el servidor de desarrollo en el puerto 4300.
 - **`npm run lint`**: Ejecuta el análisis de linting y arregla problemas automáticamente si es posible.
+- **`npm run deploy`**: Despliega una [nueva versión](https://asancho95tr.github.io/octane/).
 
 ## Tecnologías Utilizadas
 
