@@ -11,6 +11,7 @@ import { HomeBaseComponent } from '../base.component';
 import { DataPipe } from '@pipes/data.pipe';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { BaseItem } from '@models/interfaces/base-item.model';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +24,7 @@ import { BaseItem } from '@models/interfaces/base-item.model';
     NgClass,
     MatTableModule,
     DataPipe,
+    MatTooltip,
     MatSort,
     MatSortModule,
   ],

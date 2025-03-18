@@ -4,33 +4,72 @@ import { Header } from '@models/interfaces/header.model';
 export const REPORT_HEADERS: Header[] = [
   { text: 'Ciclo', value: 'cycle', type: HeadersType.TEXT },
   { text: 'Sprint', value: 'sprint', type: HeadersType.TEXT },
-  { text: 'Sin estimar', value: 'noEstimated', type: HeadersType.NUMBER },
-  { text: 'Con ETC', value: 'withRemaining', type: HeadersType.NUMBER },
-  { text: 'Sin incurrir', value: 'noInvested', type: HeadersType.NUMBER },
-  { text: 'Abiertas', value: 'opened', type: HeadersType.NUMBER },
-  { text: 'Sin asignado', value: 'noAsigned', type: HeadersType.NUMBER },
+  {
+    text: 'Sin estimar',
+    value: 'noEstimated',
+    type: HeadersType.NUMBER,
+    tooltip: "Número de tareas sin 'Estimated hours'",
+  },
+  {
+    text: 'Con ETC',
+    value: 'withRemaining',
+    type: HeadersType.NUMBER,
+    tooltip: "Número de tareas con 'Remaining hours'",
+  },
+  {
+    text: 'Sin incurrir',
+    value: 'noInvested',
+    type: HeadersType.NUMBER,
+    tooltip: "Número de tareas sin 'Invested hours'",
+  },
+  {
+    text: 'Abiertas',
+    value: 'opened',
+    type: HeadersType.NUMBER,
+    tooltip:
+      "Número de tareas en phase diferente a 'Closed', 'Fixed', 'Completed' y 'Done'",
+  },
+  {
+    text: 'Sin asignado',
+    value: 'noAsigned',
+    type: HeadersType.NUMBER,
+    tooltip: "Número de tareas sin 'Owner'",
+  },
   {
     text: 'Estimado=Incurrido',
     value: 'suspiciousInvestement',
     type: HeadersType.NUMBER,
+    tooltip:
+      "Número de tareas que tienen la misma cantidad 'Invested hours' y 'Estimated hours' siendo superior al ratio configurado (20h por defecto)",
   },
-  { text: 'Bugs', value: 'bugs', type: HeadersType.NUMBER },
+  {
+    text: 'Bugs',
+    value: 'bugs',
+    type: HeadersType.NUMBER,
+    tooltip: "Número de tareas de tipo 'Defect'",
+  },
   {
     text: 'Número defectos encontrados',
     value: 'defects',
     type: HeadersType.NUMBER,
     hidden: true,
+    tooltip:
+      "Sumatorio del valor del campo 'Número defectos encontrados' de cada tarea",
   },
   {
     text: 'Ceremonias',
     value: 'ceremonies',
     type: HeadersType.NUMBER,
     hidden: true,
+    tooltip:
+      "Número de tareas con nombre de ceremonia ('CodeReview', 'Daily', 'Planning', 'Refinement', 'Review DEMO')",
   },
   {
     text: 'Estimado vs incurrido',
     value: 'estimatedVsInvested',
     type: HeadersType.PERCENT,
+    tooltip:
+      "Cálculo porcentual entre 'Invested hours' y 'Estimated hours'.\n\n (estimated / (inProgress ? invested + remaining : invested)",
   },
 ];
 
@@ -39,11 +78,14 @@ export const EFFICIENY_HEADERS: Header[] = [
     value: 'tasksWithoutSprint',
     text: 'Tareas sin sprint',
     type: HeadersType.NUMBER,
+    tooltip: 'Número de tareas sin sprint',
   },
   {
     value: 'estimatedVsInvested',
     text: 'Estimado vs invertido',
     type: HeadersType.PERCENT,
+    tooltip:
+      "Cálculo porcentual entre 'Invested hours' y 'Estimated hours'.\n\n (estimated / (inProgress ? invested + remaining : invested)",
   },
 ];
 
@@ -57,11 +99,15 @@ export const TEAM_EFICIENCY_HEADERS: Header[] = [
     value: 'doneOrClosed',
     text: 'Tareas finalizadas',
     type: HeadersType.NUMBER,
+    tooltip:
+      "Número de tareas en phase 'Closed', 'Fixed', 'Completed' o 'Done'",
   },
   {
     value: 'estimatedVsInvested',
     text: 'Estimado vs incurrido',
     type: HeadersType.PERCENT,
+    tooltip:
+      "Cálculo porcentual entre 'Invested hours' y 'Estimated hours'.\n\n (estimated / (inProgress ? invested + remaining : invested)",
   },
 ];
 
@@ -89,6 +135,8 @@ export const DETAIL_HEADERS: Header[] = [
     text: 'Estimado vs incurrido',
     value: 'estimatedVsInvested',
     type: HeadersType.PERCENT,
+    tooltip:
+      "Cálculo porcentual entre 'Invested hours' y 'Estimated hours'.\n\n (estimated / (inProgress ? invested + remaining : invested)",
   },
 ];
 

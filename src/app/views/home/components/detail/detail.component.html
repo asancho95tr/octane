@@ -6,7 +6,7 @@
   </caption>
   <ng-container *ngFor="let header of data.headers">
     <ng-container [matColumnDef]="header.value">
-      <th mat-header-cell *matHeaderCellDef  [mat-sort-header]="header.value">
+      <th mat-header-cell *matHeaderCellDef [mat-sort-header]="header.value" [matTooltip]="header.tooltip" matTooltipPosition="above">
         {{ header.text }}
       </th>
       <td
