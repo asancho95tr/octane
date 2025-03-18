@@ -20,11 +20,12 @@
     "module": "ES2022",
     "baseUrl": "./",
     "paths": {
+      "@components/*": ["./src/app/shared/components/*"],
       "@core/*": ["./src/app/core/*"],
       "@models/*": ["./src/app/models/*"],
-      "@pipes/*": ["./src/app/pipes/*"],
+      "@pipes/*": ["./src/app/shared/pipes/*"],
       "@services/*": ["./src/app/services/*"],
-      "@utils/*": ["./src/app/utils/*"],
+      "@utils/*": ["./src/app/shared/utils/*"],
       "@views/*": ["./src/app/views/*"]
     }
   },

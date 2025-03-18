@@ -18,12 +18,17 @@ import { Header } from '@models/interfaces/header.model';
   providedIn: 'root',
 })
 export class ReportBacklogService extends ReportBaseService {
+  backlogBySprints: Record<string, Row[]>[] = [];
   getBacklog(data: Row[], sprints: string[]): BaseTable {
+    this.backlogBySprints = [];
     return {
       name: 'Tareas',
       headers: REPORT_HEADERS.filter((header: Header) => !header.hidden),
       rows: sprints.map((sprint: string) => {
         const itemsSprint: Row[] = this.#getItemsBySprint(data, sprint);
+        let newObj: Record<string, Row[]> = {};
+        newObj[sprint] = itemsSprint;
+        this.backlogBySprints.push(newObj);
         //Cálculos
         const calcs = this.getCalcs(itemsSprint);
         //Datos
