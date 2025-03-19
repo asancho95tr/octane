@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -9,9 +9,7 @@ import { BaseChartDirective } from 'ng2-charts';
   imports: [BaseChartDirective],
 })
 export class LineChartComponent {
-  title = 'ng2-charts-demo';
-
-  public lineChartData: ChartConfiguration<'line'>['data'] = {
+  @Input() data: ChartConfiguration<'line'>['data'] = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
