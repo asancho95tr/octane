@@ -21,13 +21,17 @@ export enum BacklogItemProperty {
   estimatedVsInvested = 'estimatedVsInvested',
 }
 
+export enum TeamItemProperty {
+  member = 'member',
+  doneOrClosed = 'doneOrClosed',
+  estimatedVsInvested = 'estimatedVsInvested',
+}
+
+//Project
 // value: 'tasksWithoutSprint'
 // value: 'estimatedVsInvested'
 
-// value: 'member'
-// value: 'doneOrClosed'
-// value: 'estimatedVsInvested'
-
+//Detail
 // value: 'id'
 // value: 'feature'
 // value: 'team'

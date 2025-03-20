@@ -25,3 +25,4 @@
   <tr mat-header-row *matHeaderRowDef="headersNames; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: headersNames"></tr>
 </table>
+<app-pie-chart *ngIf="tasksByTeam() as tasksByTeam" title="Tareas por persona" [data]="tasksByTeam"></app-pie-chart>

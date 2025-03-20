@@ -53,9 +53,11 @@ Este proyecto Angular tiene como objetivo permitir la importación de archivos E
    - Los datos se cargarán y procesarán para su visualización.
 
 2. **Navegación en el Reporte**:
+
    - Las tareas se muestran organizadas por sprints.
    - Las tareas que no han sido estimadas, no están asignadas, tienen tiempo sin invertir, o no han sido cerradas estarán destacadas.
    - La comparación porcentual entre el tiempo estimado y el tiempo invertido estará visible para cada tarea.
+
 3. **Interacción con el Reporte**:
    - Al hacer clic en cualquier celda de la tabla (por ejemplo, el número de tareas sin asignación), se mostrará una tabla detallada en la parte inferior con las tareas específicas.
    - La tabla incluirá enlaces a Octane ALM para ver más detalles sobre cada tarea.
@@ -74,6 +76,7 @@ El proyecto está configurado con varios scripts útiles para facilitar el desar
 - **Angular Material**: Librería para la interfaz de usuario (UI).
 - **xlsx**: Librería para manejar la importación y lectura de archivos Excel.
 - **ngx-toastr**: Para notificaciones de éxito o error.
+- **ng2-charts**: Para mostrar gráficas. [Ejemplos](https://www.npmjs.com/package/ng2-charts)
 
 ## Contribuciones
 

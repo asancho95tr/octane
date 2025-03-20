@@ -9,6 +9,7 @@ import { BaseChartDirective } from 'ng2-charts';
   imports: [BaseChartDirective],
 })
 export class LineChartComponent {
+  @Input({ required: true }) title: string = '';
   @Input() data: ChartConfiguration<'line'>['data'] = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -22,8 +23,8 @@ export class LineChartComponent {
       },
     ],
   };
-  public lineChartOptions: ChartOptions<'line'> = {
+  lineChartOptions: ChartOptions<'line'> = {
     responsive: false,
   };
-  public lineChartLegend = true;
+  lineChartLegend = true;
 }

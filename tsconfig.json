@@ -25,6 +25,7 @@
       "@models/*": ["./src/app/models/*"],
       "@pipes/*": ["./src/app/shared/pipes/*"],
       "@services/*": ["./src/app/services/*"],
+      "@shared/*": ["./src/app/shared/*"],
       "@utils/*": ["./src/app/shared/utils/*"],
       "@views/*": ["./src/app/views/*"]
     }
