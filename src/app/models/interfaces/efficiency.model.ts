@@ -6,4 +6,6 @@ export interface Efficiency {
   member?: BaseItem;
   teamEfficiency?: Efficiency[];
   doneOrClosed?: BaseItem;
+  featuresNames?: string[];
+  features?: BaseItem[];
 }

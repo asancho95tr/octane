@@ -140,6 +140,7 @@ export class ReportBacklogService extends ReportBaseService {
           ...element,
           'Estimado vs incurrido': this.getEfficiency([element], true)
             .efficiency,
+          Feature: this.getFeature(element),
         };
       });
   }

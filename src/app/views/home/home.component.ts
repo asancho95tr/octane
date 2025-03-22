@@ -18,6 +18,8 @@ import { HomeDetailComponent } from './components/detail/detail.component';
 import { BaseTable } from '@models/interfaces/base-table.model';
 import { ReportDetailService } from '@services/report-detail.service';
 import { BaseItem } from '@models/interfaces/base-item.model';
+import { HomeTeamChartsComponent } from './components/team-charts/team-charts.component';
+import { HomeBacklogChartsComponent } from './components/backlog-charts/backlog-charts.component';
 
 @Component({
   selector: 'app-home',
@@ -29,8 +31,10 @@ import { BaseItem } from '@models/interfaces/base-item.model';
     MatIcon,
     MatButton,
     HomeBacklogComponent,
+    HomeBacklogChartsComponent,
     HomeProjectComponent,
     HomeTeamComponent,
+    HomeTeamChartsComponent,
     HomeDetailComponent,
   ],
 })

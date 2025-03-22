@@ -1,0 +1,10 @@
+<app-pie-chart
+  *ngIf="tasksByTeam() as tasksByTeam"
+  title="Tareas por persona"
+  [data]="tasksByTeam"
+></app-pie-chart>
+<app-radar-chart
+  *ngIf="featuresByTeamMember() as featuresByTeamMember"
+  title="Features por persona"
+  [data]="featuresByTeamMember"
+></app-radar-chart>

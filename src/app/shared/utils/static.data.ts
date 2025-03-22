@@ -113,7 +113,7 @@ export const TEAM_EFICIENCY_HEADERS: Header[] = [
 
 export const DETAIL_HEADERS: Header[] = [
   { text: 'ID', value: 'id', type: HeadersType.LINK },
-  { text: 'Feature', value: 'feature', type: HeadersType.TEXT, hidden: true },
+  { text: 'Feature', value: 'feature', type: HeadersType.TEXT },
   { text: 'Team', value: 'team', type: HeadersType.TEXT, hidden: true },
   { text: 'Tags', value: 'tags', type: HeadersType.TEXT, hidden: true },
   { text: 'Name', value: 'name', type: HeadersType.TEXT },

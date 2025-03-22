@@ -6,14 +6,23 @@
   </caption>
   <ng-container *ngFor="let header of data.headers">
     <ng-container [matColumnDef]="header.value">
-      <th mat-header-cell *matHeaderCellDef [matTooltip]="header.tooltip" matTooltipPosition="above">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        [matTooltip]="header.tooltip"
+        matTooltipPosition="above"
+      >
         {{ header.text }}
       </th>
       <td
         mat-cell
         *matCellDef="let item"
         class="table__rows {{ item[header.value].class }}"
-        [ngClass]="{ selectable: item[header.value]?.value !== undefined && item[header.value]?.value.length > 0 }"
+        [ngClass]="{
+          selectable:
+            item[header.value]?.value !== undefined &&
+            item[header.value]?.value.length > 0
+        }"
         (click)="selectData(item, header.value)"
       >
         <div>
@@ -25,4 +34,3 @@
   <tr mat-header-row *matHeaderRowDef="headersNames; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: headersNames"></tr>
 </table>
-<app-pie-chart *ngIf="tasksByTeam() as tasksByTeam" title="Tareas por persona" [data]="tasksByTeam"></app-pie-chart>

@@ -32,6 +32,13 @@ export class ReportBaseService {
     return item[property] ?? item[`${HeadersToCheck.BACKLOG_ITEM}${property}`];
   }
 
+  getFeature(item: any) {
+    return (
+      this.getValueByProperty(item, HeadersToCheck.FEATURE) ??
+      this.getValueByProperty(item, HeadersToCheck.PARENT)
+    );
+  }
+
   propertyExists(element: any, property: string) {
     const value = this.getValueByProperty(element, property);
     return value && value !== '';

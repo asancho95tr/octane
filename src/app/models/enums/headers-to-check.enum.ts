@@ -1,6 +1,8 @@
 export enum HeadersToCheck {
   CICLO = 'Release',
   SPRINT = 'Sprint',
+  FEATURE = 'Feature',
+  PARENT = 'Parent',
   BACKLOG_ITEM = 'Backlog item: ',
   NAME = 'Name',
   ESTIMATED = 'Estimated hours',

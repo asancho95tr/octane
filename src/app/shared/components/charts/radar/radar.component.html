@@ -1,0 +1,10 @@
+<div style="display: block; min-height: 600px">
+  <canvas
+    baseChart
+    type="radar"
+    [datasets]="data.datasets"
+    [options]="data.options === undefined ? options : data.options"
+    [labels]="data.labels"
+  >
+  </canvas>
+</div>

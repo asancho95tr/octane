@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
 import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
 import { BaseItem } from '@models/interfaces/base-item.model';
-import { BaseTable } from '@models/interfaces/base-table.model';
+import {
+  BaseTable,
+  EfficiencyTable,
+} from '@models/interfaces/base-table.model';
+import { Efficiency } from '@models/interfaces/efficiency.model';
 import {
   BacklogItemProperty,
   TeamItemProperty,
 } from '@models/interfaces/octane-report.model';
 import { Row } from '@models/interfaces/row.model';
+import { PieChart } from '@shared/models/pie.interface';
+import { RadarChart } from '@shared/models/radar.interface';
 import { COLOR } from '@shared/utils/colors.data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportChartService {
-  getTasksByTeamMember(data: BaseTable) {
+  getTasksByTeamMember(data: BaseTable): PieChart {
     const labels = data.rows.map(
       (row: Record<string, BaseItem>) =>
         row[TeamItemProperty.member].text?.toString() ?? ''
@@ -37,9 +43,36 @@ export class ReportChartService {
     ];
     return {
       datasets: datasets,
-      labels: labels.map((person: string) => person.split(' (')[0]),
+      labels: labels.map((person: string) => this.#removeMailFromName(person)),
     };
   }
+
+  getFeaturesByTeamMember(data: EfficiencyTable): RadarChart {
+    const team = data.efficiency.teamEfficiency ?? [];
+    const labels = [
+      ...new Set(
+        team
+          .map((efficincy: Efficiency) => efficincy.featuresNames ?? [])
+          .flat()
+      ),
+    ];
+    const datasets = team.map((item: Efficiency) => {
+      return {
+        label: this.#removeMailFromName(item.member?.value?.toString() ?? ''),
+        data: labels.map((feature: string) => {
+          const featureItem = item.features?.find(
+            (featureItem: BaseItem) => featureItem.text === feature
+          );
+          return Number(featureItem?.value) ?? 0;
+        }),
+      };
+    });
+    return {
+      labels: labels,
+      datasets: datasets,
+    };
+  }
+
   getHoursHistoric(data: BaseTable, reportBySprint: Record<string, Row[]>[]) {
     const labels = [
       ...new Set(
@@ -104,5 +137,9 @@ export class ReportChartService {
         .map((row: Row) => row[property])
         .reduce((sum: number, current: number) => sum + current, 0);
     });
+  }
+
+  #removeMailFromName(name: string) {
+    return name.split(' (')[0];
   }
 }

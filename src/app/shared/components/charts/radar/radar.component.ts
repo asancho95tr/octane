@@ -2,26 +2,33 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { PieChart } from '@shared/models/pie.interface';
+import { RadarChart } from '@shared/models/radar.interface';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-pie-chart',
-  templateUrl: './pie.component.html',
+  selector: 'app-radar-chart',
+  templateUrl: './radar.component.html',
   imports: [BaseChartDirective],
 })
-export class PieChartComponent {
+export class RadarChartComponent {
   @Input({ required: true }) title: string = '';
-  @Input() data: PieChart = {
+  @Input() data: RadarChart = {
     options: { responsive: false },
-    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    labels: [
+      'Eating',
+      'Drinking',
+      'Sleeping',
+      'Designing',
+      'Coding',
+      'Cycling',
+      'Running',
+    ],
     datasets: [
-      {
-        data: [300, 500, 100],
-      },
+      { data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A' },
+      { data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' },
     ],
     legend: true,
   };
 
-  legend = true;
   options = { responsive: true, maintainAspectRatio: false };
 }

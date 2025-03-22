@@ -24,15 +24,22 @@ export class ReportTeamService extends ReportBaseService {
       const dataOfMember: Row[] = data.filter(
         (element: Row) => this.getOwner(element) === member
       );
+      const features = [
+        ...new Set(data.map((element: Row) => this.getFeature(element))),
+      ];
       efficiency.teamEfficiency?.push({
         member: { value: memberName },
         ...this.getEfficiency(dataOfMember),
+        featuresNames: features,
+        features: this.#getTasksByFeature(dataOfMember, features),
       });
     });
 
     return {
       name: 'Tareas por persona',
-      headers: TEAM_EFICIENCY_HEADERS.filter((header: Header) => !header.hidden),
+      headers: TEAM_EFICIENCY_HEADERS.filter(
+        (header: Header) => !header.hidden
+      ),
       rows: teamMembers.map((member: string) => {
         const memberName: string =
           member && member !== '' ? member : 'Sin asignar';
@@ -48,5 +55,13 @@ export class ReportTeamService extends ReportBaseService {
       }),
       efficiency: efficiency,
     };
+  }
+
+  #getTasksByFeature(data: Row[], features: string[]) {
+    return features.map((feature: string) => ({
+      text: feature,
+      value: data.filter((element: Row) => this.getFeature(element) === feature)
+        .length,
+    }));
   }
 }

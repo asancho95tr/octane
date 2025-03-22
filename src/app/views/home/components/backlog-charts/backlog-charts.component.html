@@ -1,0 +1,5 @@
+<app-line-chart
+  *ngIf="hoursHistoric() as hoursHistoric"
+  title="Comparación de horas estimadas, inveridas y restantes"
+  [data]="hoursHistoric"
+></app-line-chart>

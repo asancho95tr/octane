@@ -22,24 +22,32 @@
     Configuración
   </button>
 </div>
-<div class="container" *ngIf="isImported() && report() as report">
-  <app-backlog
-    [data]="report.backlog"
-    (selectCell)="loadDetail($event.item, $event.property)"
-  ></app-backlog>
-  <div class="container__eficiency">
-    <app-project
-      class="container__eficiency__project"
-      [data]="report.project"
+<ng-container *ngIf="isImported() && report() as report">
+  <div class="container">
+    <app-backlog
+      [data]="report.backlog"
       (selectCell)="loadDetail($event.item, $event.property)"
-    ></app-project>
-    <app-team [data]="report.team" (selectCell)="loadDetail($event.item, $event.property)"></app-team>
+    ></app-backlog>
+    <div class="container__eficiency">
+      <app-project
+        class="container__eficiency__project"
+        [data]="report.project"
+        (selectCell)="loadDetail($event.item, $event.property)"
+      ></app-project>
+      <app-team
+        [data]="report.team"
+        (selectCell)="loadDetail($event.item, $event.property)"
+      ></app-team>
+    </div>
   </div>
-</div>
 
-<div class="detail">
-  <app-detail
-    *ngIf="showDetail() && detail() as detail"
-    [data]="detail"
-  ></app-detail>
-</div>
+  <div class="detail">
+    <app-detail
+      *ngIf="showDetail() && detail() as detail"
+      [data]="detail"
+    ></app-detail>
+  </div>
+
+  <app-backlog-charts [data]="report.backlog"></app-backlog-charts>
+  <app-team-charts [data]="report.team"></app-team-charts>
+</ng-container>
