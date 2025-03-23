@@ -24,30 +24,48 @@
 </div>
 <ng-container *ngIf="isImported() && report() as report">
   <div class="container">
-    <app-backlog
-      [data]="report.backlog"
-      (selectCell)="loadDetail($event.item, $event.property)"
-    ></app-backlog>
-    <div class="container__eficiency">
-      <app-project
-        class="container__eficiency__project"
-        [data]="report.project"
+    <div class="container__tables">
+      <app-backlog
+        [data]="report.backlog"
         (selectCell)="loadDetail($event.item, $event.property)"
-      ></app-project>
-      <app-team
-        [data]="report.team"
-        (selectCell)="loadDetail($event.item, $event.property)"
-      ></app-team>
+      ></app-backlog>
+      <div class="container__tables__efficiency">
+        <app-project
+          class="container__tables__efficiency__project"
+          [data]="report.project"
+          (selectCell)="loadDetail($event.item, $event.property)"
+        ></app-project>
+        <app-team
+          [data]="report.team"
+          (selectCell)="loadDetail($event.item, $event.property)"
+        ></app-team>
+      </div>
     </div>
-  </div>
 
-  <div class="detail">
-    <app-detail
-      *ngIf="showDetail() && detail() as detail"
-      [data]="detail"
-    ></app-detail>
-  </div>
+    <div class="container__detail" *ngIf="showDetail() && detail() as detail">
+      <app-detail [data]="detail"></app-detail>
+    </div>
 
-  <app-backlog-charts [data]="report.backlog"></app-backlog-charts>
-  <app-team-charts [data]="report.team"></app-team-charts>
+    <mat-expansion-panel class="container__collapsable">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Gráficas </mat-panel-title>
+        <mat-panel-description>
+          Revisa de forma visual el estado del backlog y el equipo
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="charts">
+        <app-backlog-charts
+          class="card"
+          [data]="report.backlog"
+        ></app-backlog-charts>
+        <app-team-tasks class="card" [data]="report.team"></app-team-tasks>
+        <app-features-sprint
+          class="card"
+          style="width: -webkit-fill-available"
+          [data]="report.backlog"
+        ></app-features-sprint>
+      </div>
+      <app-team-features [data]="report.team"></app-team-features>
+    </mat-expansion-panel>
+  </div>
 </ng-container>

@@ -8,6 +8,12 @@ import {
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelDescription,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
 import { OctaneReport } from '@models/interfaces/octane-report.model';
 import { ReportService } from '@services/report.service';
@@ -18,8 +24,10 @@ import { HomeDetailComponent } from './components/detail/detail.component';
 import { BaseTable } from '@models/interfaces/base-table.model';
 import { ReportDetailService } from '@services/report-detail.service';
 import { BaseItem } from '@models/interfaces/base-item.model';
-import { HomeTeamChartsComponent } from './components/team-charts/team-charts.component';
+import { HomeTeamTasksComponent } from './components/team-tasks/team-tasks.component';
 import { HomeBacklogChartsComponent } from './components/backlog-charts/backlog-charts.component';
+import { HomeTeamFeaturesComponent } from './components/team-features/team-features.component';
+import { HomeFeaturesSprintComponent } from './components/features-sprint/features-sprint.component';
 
 @Component({
   selector: 'app-home',
@@ -30,11 +38,17 @@ import { HomeBacklogChartsComponent } from './components/backlog-charts/backlog-
     NgIf,
     MatIcon,
     MatButton,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatExpansionPanelDescription,
     HomeBacklogComponent,
     HomeBacklogChartsComponent,
+    HomeFeaturesSprintComponent,
     HomeProjectComponent,
     HomeTeamComponent,
-    HomeTeamChartsComponent,
+    HomeTeamTasksComponent,
+    HomeTeamFeaturesComponent,
     HomeDetailComponent,
   ],
 })

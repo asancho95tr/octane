@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 
+@use "@angular/material" as mat;
+
 html,
 body {
   height: 100%;
@@ -95,4 +97,20 @@ table {
   width: 40% !important;
   border-radius: 4px;
   box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.17);
+}
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  @include mat.expansion-overrides(
+    (
+      container-background-color: #e2efda,
+      // container-text-color: red,
+    )
+  );
+}
+
+.card {
+  padding: 16px;
+  background-color: white;
+  border-radius: 10px;
 }

@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { PieChart } from '@shared/models/pie.interface';
 import { RadarChart } from '@shared/models/radar.interface';
 
 @Component({
@@ -28,6 +26,7 @@ export class RadarChartComponent {
       { data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' },
     ],
     legend: true,
+    backgroundColor: 'white',
   };
 
   options = { responsive: true, maintainAspectRatio: false };

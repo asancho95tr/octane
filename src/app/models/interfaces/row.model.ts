@@ -32,4 +32,5 @@ export interface Row {
   'Numero defectos encontrados': number;
   Assigned: string;
   efficiency: string;
+  Feature: string;
 }

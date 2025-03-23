@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { PieChart } from '@shared/models/pie.interface';
 

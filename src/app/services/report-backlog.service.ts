@@ -26,7 +26,7 @@ export class ReportBacklogService extends ReportBaseService {
       headers: REPORT_HEADERS.filter((header: Header) => !header.hidden),
       rows: sprints.map((sprint: string) => {
         const itemsSprint: Row[] = this.#getItemsBySprint(data, sprint);
-        let newObj: Record<string, Row[]> = {};
+        const newObj: Record<string, Row[]> = {};
         newObj[sprint] = itemsSprint;
         this.backlogBySprints.push(newObj);
         //Cálculos

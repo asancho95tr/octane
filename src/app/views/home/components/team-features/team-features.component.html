@@ -1,0 +1,7 @@
+<div class="card">
+  <app-radar-chart
+    *ngIf="featuresByTeamMember() as featuresByTeamMember"
+    title="Features por persona"
+    [data]="featuresByTeamMember"
+  ></app-radar-chart>
+</div>

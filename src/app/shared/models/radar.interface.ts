@@ -5,4 +5,5 @@ export interface RadarChart {
   labels: (string | string[])[];
   datasets: { data: number[]; label: string }[];
   legend?: boolean;
+  backgroundColor?: string;
 }

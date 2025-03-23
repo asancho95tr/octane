@@ -1,3 +1,4 @@
+import { HeadersToCheck } from '@models/enums/headers-to-check.enum';
 import { Injectable } from '@angular/core';
 import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
 import { BaseItem } from '@models/interfaces/base-item.model';
@@ -33,9 +34,8 @@ export class ReportChartService {
                 (row: Record<string, BaseItem>) =>
                   row[TeamItemProperty.member].text === person
               )
-              .map(
-                (row: Record<string, BaseItem>) =>
-                  Number(row[TeamItemProperty.doneOrClosed].text) ?? 0
+              .map((row: Record<string, BaseItem>) =>
+                Number(row[TeamItemProperty.doneOrClosed].text)
               )
           )
           .flat(),
@@ -63,7 +63,7 @@ export class ReportChartService {
           const featureItem = item.features?.find(
             (featureItem: BaseItem) => featureItem.text === feature
           );
-          return Number(featureItem?.value) ?? 0;
+          return Number(featureItem?.value);
         }),
       };
     });
@@ -71,6 +71,42 @@ export class ReportChartService {
       labels: labels,
       datasets: datasets,
     };
+  }
+
+  getFeaturesBySprint(reportBySprint: Record<string, Row[]>[]) {
+    const sprints: string[] = reportBySprint.map(
+      (item: Record<string, Row[]>) => Object.keys(item)[0]
+    );
+    const features = [
+      ...new Set(
+        reportBySprint
+          .map(
+            (item: Record<string, Row[]>, index: number) => item[sprints[index]]
+          )
+          .flat()
+          .map((row: Row) => row[HeadersToCheck.FEATURE])
+      ),
+    ];
+    const dataset = features.map((feature: string) => {
+      return {
+        label: feature,
+        pointRadius: 10,
+
+        data: reportBySprint.map(
+          (item: Record<string, Row[]>, index: number) => {
+            const row = item[sprints[index]];
+            return {
+              x: index,
+              y: row.filter(
+                (row: Row) => row[HeadersToCheck.FEATURE] === feature
+              ).length,
+            };
+          }
+        ),
+      };
+    });
+    console.log(dataset);
+    return dataset;
   }
 
   getHoursHistoric(data: BaseTable, reportBySprint: Record<string, Row[]>[]) {
