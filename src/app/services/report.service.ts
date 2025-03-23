@@ -22,12 +22,28 @@ export class ReportService extends ReportBaseService {
     super();
   }
 
+  /**
+   * Method to import a Octane report from a json file.
+   *
+   * Reads a file, parses it as a json and returns an OctaneReport with the backlog, project and team efficiency.
+   *
+   * @param file The file to be imported.
+   * @returns An Observable of OctaneReport.
+   */
   importReport(file: File): Observable<OctaneReport> {
     return this._fileService
       .uploadFileToJson(file)
       .pipe(map((data) => this.#formatData(data)));
   }
 
+  /**
+   * Method to format the data of a report.
+   *
+   * Returns an OctaneReport with the backlog, project and team efficiency.
+   *
+   * @param data The data to be formatted.
+   * @returns An OctaneReport with the backlog, project and team efficiency.
+   */
   #formatData(data: Row[]): OctaneReport {
     const sprints: string[] = this.#getSprints(data);
     sprints.sort(this.#sortSprints());
@@ -45,6 +61,16 @@ export class ReportService extends ReportBaseService {
     };
   }
 
+  /**
+   * Method to get all the sprints from a dataset.
+   *
+   * Filters the dataset to only include the elements that have a sprint and then
+   * maps them to get the sprint value. The result is an array of unique string
+   * values.
+   *
+   * @param data The dataset to be processed.
+   * @returns An array of unique string values representing the sprints.
+   */
   #getSprints(data: Row[]) {
     return [
       ...new Set(
@@ -54,6 +80,16 @@ export class ReportService extends ReportBaseService {
       ),
     ];
   }
+
+  /**
+   * Retrieves the sprint value from a given row item.
+   *
+   * Attempts to get the sprint value using the SPRINT header. If not available,
+   * it tries to fetch the sprint value using the BACKLOG_ITEM and SPRINT headers combined.
+   *
+   * @param item The row item from which to extract the sprint value.
+   * @returns The sprint value if available, otherwise undefined.
+   */
 
   #getSprintValue(item: Row) {
     return (
@@ -65,6 +101,15 @@ export class ReportService extends ReportBaseService {
     );
   }
 
+  /**
+   * Method to sort an array of sprint names.
+   *
+   * It will sort the array by the numerical value of the sprint name.
+   * If the sprint name does not contain a numerical value, it will be
+   * placed last in the sorting.
+   *
+   * @returns A compare function for an array sort.
+   */
   #sortSprints() {
     return (a: string, b: string) =>
       Number(

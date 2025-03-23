@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule } from '@angular/material/button-toggle';
+import {
+  MatButtonToggle,
+  MatButtonToggleGroup,
+  MatButtonToggleModule,
+} from '@angular/material/button-toggle';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -80,6 +84,10 @@ export class ManagementComponent implements OnInit {
     this.config.set(config);
   }
 
+  /**
+   * Refreshes the list of configurations by getting all the configurations
+   * from ConfigService and filtering out the current configuration.
+   */
   refreshList() {
     this.list = this._configService
       .getConfigurationsList()
@@ -89,6 +97,13 @@ export class ManagementComponent implements OnInit {
       );
   }
 
+  /**
+   * Handles the configuration file selection event by loading the configuration
+   * using ConfigService.setData() and then updating the selectedConfiguration
+   * property with the loaded configuration. Also sets the isImported signal to
+   * true once the configuration has been loaded.
+   * @param event the file selection event
+   */
   configSelected(event: any) {
     this._configService.setData(event).then((obj: Configuration) => {
       this.selectedConfiguration = obj;
@@ -96,6 +111,13 @@ export class ManagementComponent implements OnInit {
     });
   }
 
+  /**
+   * Saves the configuration selected in the component to the ConfigService
+   * under the name given in the `projectName` input. Also updates the
+   * constants in the ConfigService using the selected configuration and
+   * reloads the list of configurations.
+   * @returns void
+   */
   saveConfig() {
     if (
       this.projectName &&
@@ -120,6 +142,14 @@ export class ManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Loads the configuration selected in the component from the ConfigService
+   * and assigns it to the selectedConfiguration property. If the selected
+   * configuration does not exist, it sets the configuration to the default
+   * configuration. Also updates the ConfigService with the selected
+   * configuration and reloads the list of configurations.
+   * @returns void
+   */
   loadConfig() {
     if (this.selectedProject) {
       this.selectedConfiguration =
@@ -135,6 +165,14 @@ export class ManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Deletes the configuration selected in the component using the ConfigService.
+   * If a project is selected, it removes the configuration associated with that
+   * project name, resets the selected configuration to the default, and refreshes
+   * the list of configurations. If no project is selected, it shows an error
+   * message indicating that a configuration must be selected.
+   */
+
   deleteConfig() {
     if (this.selectedProject) {
       this._configService.deleteConfig(this.selectedProject);
@@ -149,6 +187,12 @@ export class ManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Applies the configuration loaded in the component to the ConfigService,
+   * using the service's updateConstants method. If there is no selected
+   * configuration, it shows an error message indicating that there is no
+   * configuration to load.
+   */
   applyLoadedConfig() {
     if (this.selectedConfiguration) {
       this._configService.updateConstants(this.selectedConfiguration);
@@ -157,6 +201,14 @@ export class ManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Refreshes the table of configurations based on the current value of the
+   * `config` signal. If the current value is `Actions.IMPORT`, it sets the
+   * `selectedConfiguration` to the current configuration. If the current value
+   * is either `Actions.LOAD` or `Actions.DELETE`, it loads the configuration
+   * associated with the selected project in the component using the
+   * `loadConfig` method. If there is no selected project, it does nothing.
+   */
   refreshTable() {
     switch (this.config()) {
       case Actions.IMPORT:

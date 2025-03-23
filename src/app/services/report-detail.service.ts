@@ -10,6 +10,12 @@ import { Header } from '@models/interfaces/header.model';
   providedIn: 'root',
 })
 export class ReportDetailService extends ReportBaseService {
+  /**
+   * Transforma la lista de tareas en una tabla con la columna adicional
+   * 'estimatedVsInvested' que contiene la eficiencia de cada tarea.
+   * @param data lista de tareas
+   * @returns tabla con la columna adicional 'estimatedVsInvested'
+   */
   getDetails(data: Row[]): BaseTable {
     data.sort((a: Row, b: Row) => {
       const ownerA: string =

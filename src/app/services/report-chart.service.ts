@@ -20,6 +20,11 @@ import { COLOR } from '@shared/utils/colors.data';
   providedIn: 'root',
 })
 export class ReportChartService {
+  /**
+   * Creates a pie chart with the number of tasks done or closed by each team member.
+   * @param data BaseTable with the data to be processed
+   * @returns PieChart with the team members as labels and the number of done or closed tasks as data
+   */
   getTasksByTeamMember(data: BaseTable): PieChart {
     const labels = data.rows.map(
       (row: Record<string, BaseItem>) =>
@@ -47,6 +52,14 @@ export class ReportChartService {
     };
   }
 
+  /**
+   * Generates a radar chart data structure where each dataset corresponds to a team member
+   * and each axis of the radar chart represents a feature.
+   *
+   * @param data - EfficiencyTable containing team efficiency data including features.
+   * @returns RadarChart - An object containing labels for features and datasets for each team member.
+   */
+
   getFeaturesByTeamMember(data: EfficiencyTable): RadarChart {
     const team = data.efficiency.teamEfficiency ?? [];
     const labels = [
@@ -73,6 +86,14 @@ export class ReportChartService {
     };
   }
 
+  /**
+   * Generates a scatter chart where each point represents a feature in a sprint.
+   * The x-axis is the sprint index, and the y-axis is the number of tasks
+   * in that sprint.
+   *
+   * @param reportBySprint - The report data grouped by sprint.
+   * @returns An array of datasets for a scatter chart.
+   */
   getFeaturesBySprint(reportBySprint: Record<string, Row[]>[]) {
     const sprints: string[] = reportBySprint.map(
       (item: Record<string, Row[]>) => Object.keys(item)[0]
@@ -105,9 +126,18 @@ export class ReportChartService {
           .filter((item) => item.y > 0),
       };
     });
-    console.log(dataset);
     return dataset;
   }
+
+  /**
+   * Generates a line chart configuration displaying the historic data of hours
+   * invested, remaining, and estimated over multiple sprints.
+   *
+   * @param data - The base table containing rows with sprint information.
+   * @param reportBySprint - The report data grouped by sprint.
+   * @returns An object containing labels for the x-axis (sprint names) and datasets
+   *          for invested, remaining, and estimated hours.
+   */
 
   getHoursHistoric(data: BaseTable, reportBySprint: Record<string, Row[]>[]) {
     const labels = [
@@ -162,6 +192,15 @@ export class ReportChartService {
     };
   }
 
+  /**
+   * Computes the summatory of a specific property for each sprint.
+   *
+   * @param labels - An array of sprint names used as labels.
+   * @param reportBySprint - A list of records where each record maps a sprint name to its corresponding rows.
+   * @param property - The property of the rows to be summed, specified by the SummatoryKeys enum.
+   * @returns An array of numbers representing the sum of the given property for each sprint.
+   */
+
   #getSummatoryBySprint(
     labels: string[],
     reportBySprint: Record<string, Row[]>[],
@@ -175,6 +214,15 @@ export class ReportChartService {
     });
   }
 
+  /**
+   * Removes the email part from a name, if present.
+   *
+   * Examples:
+   *   - 'John Doe (johndoe@example.com)' -> 'John Doe'
+   *   - 'Jane Doe' -> 'Jane Doe'
+   * @param name - The name to be processed
+   * @returns The name without the email part
+   */
   #removeMailFromName(name: string) {
     return name.split(' (')[0];
   }

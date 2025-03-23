@@ -7,11 +7,31 @@ import { read, utils, WorkBook, WorkSheet } from 'xlsx';
   providedIn: 'root',
 })
 export class FileService {
+  /**
+   * Uploads a file to the server and parses it as a json.
+   *
+   * It returns an observable of an array of Row objects.
+   *
+   * @param file The file to be uploaded.
+   * @returns An observable of an array of Row objects.
+   */
   uploadFileToJson(file: File): Observable<Row[]> {
     return from(file.arrayBuffer()).pipe(
       map((fileData: ArrayBuffer) => this.#getDataFromArrayBuffer(fileData))
     );
   }
+
+  /**
+   * Parses the provided ArrayBuffer into an array of Row objects.
+   *
+   * This method reads the binary data of a workbook from an ArrayBuffer,
+   * processes each sheet, and converts it into JSON format. It also
+   * extracts any hyperlinks present in the sheet and appends them to
+   * the corresponding data entries.
+   *
+   * @param fileData The ArrayBuffer representing the workbook data.
+   * @returns An array of Row objects containing the parsed data from the workbook.
+   */
 
   #getDataFromArrayBuffer(fileData: ArrayBuffer): Row[] {
     const workbook: WorkBook = read(fileData);
@@ -30,6 +50,17 @@ export class FileService {
     return data;
   }
 
+  /**
+   * Iterates over the provided data and checks if there is a cell with a hyperlink
+   * in the cellsWithHyperlinks array that matches the value of the key in the data.
+   * If a match is found, it adds an entry to the returned object with the key
+   * being the original key with '_hyperlink' appended to it and the value being
+   * the URL of the hyperlink with all 'amp;' strings removed.
+   *
+   * @param cellsWithHyperlinks The array of cells with hyperlinks.
+   * @param data The data to check for hyperlinks.
+   * @returns An object with the hyperlinks found in the data.
+   */
   #getHyperLink(cellsWithHyperlinks: any[], data: any) {
     const obj: any = {};
     Object.keys(data).forEach((key: string) => {

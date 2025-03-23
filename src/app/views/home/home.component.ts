@@ -63,6 +63,15 @@ export class HomeComponent {
     private _reportDetailService: ReportDetailService
   ) {}
 
+  /**
+   * Handles the file selection event, importing the selected file as a report.
+   * It resets the detail view, checks if a file is selected, and then imports
+   * the report using the ReportService. If successful, updates the report signal
+   * and marks the file as imported. Resets the file input element after processing.
+   *
+   * @param target - The event target from which the file is selected.
+   */
+
   fileSelected(target: EventTarget | null) {
     this.showDetail.set(false);
     const file: File | undefined = (target as HTMLInputElement).files?.[0];
@@ -77,6 +86,15 @@ export class HomeComponent {
     }
   }
 
+  /**
+   * Loads the detail table with the rows associated to the given BaseItem
+   * property. It resets the detail view, gets the rows from the given property,
+   * asks the ReportDetailService to get the details, and updates the detail
+   * signal. Finally, it shows the detail view.
+   *
+   * @param item - The BaseItem from which to get the rows.
+   * @param property - The property of the BaseItem from which to get the rows.
+   */
   loadDetail(item: BaseItem, property: string) {
     this.showDetail.set(false);
     const rows = (item as any)[property].value;

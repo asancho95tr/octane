@@ -10,6 +10,12 @@ import { Header } from '@models/interfaces/header.model';
   providedIn: 'root',
 })
 export class ReportProjectService extends ReportBaseService {
+  /**
+   * Generates the project efficiency report.
+   *
+   * @param data - The rows with the data to generate the report.
+   * @returns An EfficiencyTable object with the report data.
+   */
   getProjectEfficiency(data: Row[]): EfficiencyTable {
     const efficiency: Efficiency = this.getEfficiency(data);
     return {

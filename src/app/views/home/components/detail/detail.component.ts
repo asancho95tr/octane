@@ -45,6 +45,13 @@ export class HomeDetailComponent
     }
   }
 
+  /**
+   * Sorts the data in the table according to the given sort criteria. If the sort
+   * direction is 'asc' or 'desc', the sort is performed according to the given
+   * property. If the sort direction is empty, the original order is restored.
+   *
+   * @param sort The sort criteria containing the property and direction.
+   */
   sortData(sort: Sort) {
     this.currentSort.set(sort);
     const isAsc = sort.direction === 'asc';
