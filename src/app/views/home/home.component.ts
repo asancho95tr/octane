@@ -87,6 +87,24 @@ export class HomeComponent {
   }
 
   /**
+   * Initiates the download of a template Excel file. Creates a hidden anchor
+   * element, sets the href to the template file location, specifies the
+   * download attribute for the file name, and programmatically clicks the
+   * anchor to trigger the download. Removes the anchor element from the
+   * document after the download is initiated.
+   */
+
+  downloadTemplate() {
+    let link = document.createElement('a');
+    link.setAttribute('type', 'hidden');
+    link.href = 'assets/templates/template.xlsx';
+    link.download = 'template.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  /**
    * Loads the detail table with the rows associated to the given BaseItem
    * property. It resets the detail view, gets the rows from the given property,
    * asks the ReportDetailService to get the details, and updates the detail

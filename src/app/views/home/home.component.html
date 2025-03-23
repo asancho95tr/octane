@@ -1,5 +1,5 @@
 <div class="header">
-  <div>
+  <div style="display: flex; column-gap: 16px">
     <input
       hidden
       type="file"
@@ -16,6 +16,15 @@
       <mat-icon *ngIf="!isImported()">cloud_upload</mat-icon>
       <mat-icon *ngIf="isImported()">cloud_done</mat-icon>
       Importar backlog
+    </button>
+    <button
+      type="button"
+      color="secondary"
+      mat-raised-button
+      (click)="downloadTemplate()"
+    >
+      <mat-icon *ngIf="!isImported()">cloud_download</mat-icon>
+      Descargar plantilla
     </button>
   </div>
   <button mat-button color="primary" [routerLink]="'setup'">
