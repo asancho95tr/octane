@@ -92,8 +92,8 @@ export class ReportChartService {
         label: feature,
         pointRadius: 10,
 
-        data: reportBySprint.map(
-          (item: Record<string, Row[]>, index: number) => {
+        data: reportBySprint
+          .map((item: Record<string, Row[]>, index: number) => {
             const row = item[sprints[index]];
             return {
               x: index,
@@ -101,8 +101,8 @@ export class ReportChartService {
                 (row: Row) => row[HeadersToCheck.FEATURE] === feature
               ).length,
             };
-          }
-        ),
+          })
+          .filter((item) => item.y > 0),
       };
     });
     console.log(dataset);
