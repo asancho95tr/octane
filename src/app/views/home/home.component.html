@@ -61,11 +61,14 @@
         <app-team-tasks class="card" [data]="report.team"></app-team-tasks>
         <app-features-sprint
           class="card"
-          style="width: -webkit-fill-available"
+          style="width: 100%"
           [data]="report.backlog"
         ></app-features-sprint>
       </div>
-      <app-team-features [data]="report.team"></app-team-features>
+      <app-team-features
+        style="width: 100%"
+        [data]="report.team"
+      ></app-team-features>
     </mat-expansion-panel>
   </div>
 </ng-container>

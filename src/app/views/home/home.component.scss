@@ -36,3 +36,11 @@
     }
   }
 }
+
+@supports (-moz-appearance: none) {
+  .container__collapsable {
+    .charts {
+      padding-right: 0;
+    }
+  }
+}
