@@ -101,4 +101,13 @@ export class HomeComponent {
     this.detail.set(this._reportDetailService.getDetails(rows ?? []));
     this.showDetail.set(true);
   }
+
+  /**
+   * Closes the detail view by setting the showDetail signal to false and the
+   * detail signal to undefined.
+   */
+  closeDetail() {
+    this.showDetail.set(false);
+    this.detail.set(undefined);
+  }
 }

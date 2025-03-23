@@ -2,7 +2,9 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   OnChanges,
+  Output,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -12,6 +14,7 @@ import { DataPipe } from '@pipes/data.pipe';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { BaseItem } from '@models/interfaces/base-item.model';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +25,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     NgIf,
     NgFor,
     NgClass,
+    MatIcon,
+    MatTooltip,
     MatTableModule,
     DataPipe,
     MatTooltip,
@@ -36,6 +41,8 @@ export class HomeDetailComponent
   currentSort: WritableSignal<Sort> = signal({ active: 'id', direction: '' });
   dataSource = new MatTableDataSource<Record<string, BaseItem>>();
   originalOrder = new MatTableDataSource<Record<string, BaseItem>>();
+
+  @Output() close = new EventEmitter<void>();
 
   ngOnChanges() {
     this.dataSource.data = this.data?.rows;
@@ -84,5 +91,9 @@ export class HomeDetailComponent
     } else {
       this.dataSource.data = [...this.originalOrder.data];
     }
+  }
+
+  closeDetail() {
+    this.close.emit();
   }
 }

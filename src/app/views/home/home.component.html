@@ -43,7 +43,7 @@
     </div>
 
     <div class="container__detail" *ngIf="showDetail() && detail() as detail">
-      <app-detail [data]="detail"></app-detail>
+      <app-detail (close)="closeDetail()" [data]="detail"></app-detail>
     </div>
 
     <mat-expansion-panel class="container__collapsable">

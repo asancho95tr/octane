@@ -61,6 +61,16 @@ export class ReportBacklogService extends ReportBaseService {
         );
         const ceremonies: Row[] = this.#getCeremonies(itemsSprint);
 
+        const team = [
+          ...new Set(itemsSprint.map((element: Row) => this.getOwner(element))),
+        ];
+        const tasksByTeamMember = team.map((member: string) => {
+          const tasks = itemsSprint.filter(
+            (element: Row) => this.getOwner(element) === member
+          );
+          return tasks;
+        });
+
         return {
           cycle: { text: itemsSprint[0][HeadersToCheck.CICLO] ?? '-' },
           sprint: { text: sprint },
@@ -130,6 +140,11 @@ export class ReportBacklogService extends ReportBaseService {
           estimatedVsInvested: {
             text: calcs.efficiency,
             class: this.getClass(calcs.efficiency, ReportHeaders.EFFICIENCY),
+          },
+          teamSize: {
+            text: team.length,
+            value: tasksByTeamMember.flat(),
+            class: 'right',
           },
         };
       }),

@@ -4,6 +4,7 @@ import { Header } from '@models/interfaces/header.model';
 export const REPORT_HEADERS: Header[] = [
   { text: 'Ciclo', value: 'cycle', type: HeadersType.TEXT },
   { text: 'Sprint', value: 'sprint', type: HeadersType.TEXT },
+  { text: 'Equipo', value: 'teamSize', type: HeadersType.NUMBER },
   {
     text: 'Sin estimar',
     value: 'noEstimated',

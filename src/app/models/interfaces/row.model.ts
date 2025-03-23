@@ -31,6 +31,6 @@ export interface Row {
   Status: string;
   'Numero defectos encontrados': number;
   Assigned: string;
-  efficiency: string;
   Feature: string;
+  efficiency: string;
 }
