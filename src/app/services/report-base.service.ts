@@ -197,6 +197,23 @@ export class ReportBaseService {
   }
 
   /**
+   * Returns true if the given element is in a closed phase or status.
+   *
+   * @param element The element to check.
+   * @returns True if the element is closed, false otherwise.
+   */
+  getClosedData(element: Row) {
+    return (
+      ENDED_PHASES.includes(
+        this.getValueByProperty(element, HeadersToCheck.PHASE)
+      ) ||
+      ENDED_PHASES.includes(
+        this.getValueByProperty(element, HeadersToCheck.STATUS)
+      )
+    );
+  }
+
+  /**
    * Gets the CSS class for the given value and column.
    *
    * The method applies different rules for different columns. For columns

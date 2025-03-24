@@ -15,11 +15,12 @@ import { Row } from '@models/interfaces/row.model';
 import { PieChart } from '@shared/models/pie.interface';
 import { RadarChart } from '@shared/models/radar.interface';
 import { COLOR } from '@shared/utils/colors.data';
+import { ReportBaseService } from './report-base.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ReportChartService {
+export class ReportChartService extends ReportBaseService {
   /**
    * Creates a pie chart with the number of tasks done or closed by each team member.
    * @param data BaseTable with the data to be processed
@@ -119,7 +120,9 @@ export class ReportChartService {
             return {
               x: index,
               y: row.filter(
-                (row: Row) => row[HeadersToCheck.FEATURE] === feature
+                (row: Row) =>
+                  row[HeadersToCheck.FEATURE] === feature &&
+                  this.getClosedData(row)
               ).length,
             };
           })
