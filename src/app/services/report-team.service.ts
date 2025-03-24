@@ -5,6 +5,8 @@ import { Row } from '@models/interfaces/row.model';
 import { Efficiency } from '@models/interfaces/efficiency.model';
 import { TEAM_EFICIENCY_HEADERS } from '@utils/static.data';
 import { Header } from '@models/interfaces/header.model';
+import { ENDED_PHASES } from '@shared/utils/config.data';
+import { HeadersToCheck } from '@models/enums/headers-to-check.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -78,8 +80,27 @@ export class ReportTeamService extends ReportBaseService {
   #getTasksByFeature(data: Row[], features: string[]) {
     return features.map((feature: string) => ({
       text: feature,
-      value: data.filter((element: Row) => this.getFeature(element) === feature)
-        .length,
+      value: data.filter(
+        (element: Row) =>
+          this.getFeature(element) === feature && this.#getClosedData(element)
+      ).length,
     }));
+  }
+
+  /**
+   * Returns true if the given element is in a closed phase or status.
+   *
+   * @param element The element to check.
+   * @returns True if the element is closed, false otherwise.
+   */
+  #getClosedData(element: Row) {
+    return (
+      ENDED_PHASES.includes(
+        this.getValueByProperty(element, HeadersToCheck.PHASE)
+      ) ||
+      ENDED_PHASES.includes(
+        this.getValueByProperty(element, HeadersToCheck.STATUS)
+      )
+    );
   }
 }
