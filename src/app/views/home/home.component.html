@@ -79,5 +79,17 @@
         [data]="report.team"
       ></app-team-features>
     </mat-expansion-panel>
+
+    <mat-expansion-panel class="container__collapsable">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Estimación inicial </mat-panel-title>
+        <mat-panel-description>
+          Realiza una comparación con la estimación inicial
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-initial-estimation-charts
+        [data]="report.initialEstimation"
+      ></app-initial-estimation-charts>
+    </mat-expansion-panel>
   </div>
 </ng-container>

@@ -1,7 +1,10 @@
+import { BarChart } from '@shared/models/bar.interface';
 import { BaseTable, EfficiencyTable } from './base-table.model';
+import { InitialEstimation } from './initial-estimation.model';
 
 export interface OctaneReport {
   backlog: BaseTable;
+  initialEstimation: InitialEstimation[];
   team: BaseTable;
   project: EfficiencyTable;
 }

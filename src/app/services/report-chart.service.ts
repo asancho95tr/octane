@@ -16,122 +16,13 @@ import { PieChart } from '@shared/models/pie.interface';
 import { RadarChart } from '@shared/models/radar.interface';
 import { COLOR } from '@shared/utils/colors.data';
 import { ReportBaseService } from './report-base.service';
+import { InitialEstimation } from '@models/interfaces/initial-estimation.model';
+import { BarChart } from '@shared/models/bar.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportChartService extends ReportBaseService {
-  /**
-   * Creates a pie chart with the number of tasks done or closed by each team member.
-   * @param data BaseTable with the data to be processed
-   * @returns PieChart with the team members as labels and the number of done or closed tasks as data
-   */
-  getTasksByTeamMember(data: BaseTable): PieChart {
-    const labels = data.rows.map(
-      (row: Record<string, BaseItem>) =>
-        row[TeamItemProperty.member].text?.toString() ?? ''
-    );
-    const datasets = [
-      {
-        data: labels
-          .map((person: string) =>
-            data.rows
-              .filter(
-                (row: Record<string, BaseItem>) =>
-                  row[TeamItemProperty.member].text === person
-              )
-              .map((row: Record<string, BaseItem>) =>
-                Number(row[TeamItemProperty.doneOrClosed].text)
-              )
-          )
-          .flat(),
-      },
-    ];
-    return {
-      datasets: datasets,
-      labels: labels.map((person: string) => this.#removeMailFromName(person)),
-    };
-  }
-
-  /**
-   * Generates a radar chart data structure where each dataset corresponds to a team member
-   * and each axis of the radar chart represents a feature.
-   *
-   * @param data - EfficiencyTable containing team efficiency data including features.
-   * @returns RadarChart - An object containing labels for features and datasets for each team member.
-   */
-
-  getFeaturesByTeamMember(data: EfficiencyTable): RadarChart {
-    const team = data.efficiency.teamEfficiency ?? [];
-    const labels = [
-      ...new Set(
-        team
-          .map((efficincy: Efficiency) => efficincy.featuresNames ?? [])
-          .flat()
-      ),
-    ];
-    const datasets = team.map((item: Efficiency) => {
-      return {
-        label: this.#removeMailFromName(item.member?.value?.toString() ?? ''),
-        data: labels.map((feature: string) => {
-          const featureItem = item.features?.find(
-            (featureItem: BaseItem) => featureItem.text === feature
-          );
-          return Number(featureItem?.value);
-        }),
-      };
-    });
-    return {
-      labels: labels,
-      datasets: datasets,
-    };
-  }
-
-  /**
-   * Generates a scatter chart where each point represents a feature in a sprint.
-   * The x-axis is the sprint index, and the y-axis is the number of tasks
-   * in that sprint.
-   *
-   * @param reportBySprint - The report data grouped by sprint.
-   * @returns An array of datasets for a scatter chart.
-   */
-  getFeaturesBySprint(reportBySprint: Record<string, Row[]>[]) {
-    const sprints: string[] = reportBySprint.map(
-      (item: Record<string, Row[]>) => Object.keys(item)[0]
-    );
-    const features = [
-      ...new Set(
-        reportBySprint
-          .map(
-            (item: Record<string, Row[]>, index: number) => item[sprints[index]]
-          )
-          .flat()
-          .map((row: Row) => row[HeadersToCheck.FEATURE])
-      ),
-    ];
-    const dataset = features.map((feature: string) => {
-      return {
-        label: feature,
-        pointRadius: 10,
-
-        data: reportBySprint
-          .map((item: Record<string, Row[]>, index: number) => {
-            const row = item[sprints[index]];
-            return {
-              x: index,
-              y: row.filter(
-                (row: Row) =>
-                  row[HeadersToCheck.FEATURE] === feature &&
-                  this.getClosedData(row)
-              ).length,
-            };
-          })
-          .filter((item) => item.y > 0),
-      };
-    });
-    return dataset;
-  }
-
   /**
    * Generates a line chart configuration displaying the historic data of hours
    * invested, remaining, and estimated over multiple sprints.
@@ -192,6 +83,163 @@ export class ReportChartService extends ReportBaseService {
           backgroundColor: COLOR.ESTIMATED,
         },
       ],
+    };
+  }
+
+  /**
+   * Creates a pie chart with the number of tasks done or closed by each team member.
+   * @param data BaseTable with the data to be processed
+   * @returns PieChart with the team members as labels and the number of done or closed tasks as data
+   */
+  getTasksByTeamMember(data: BaseTable): PieChart {
+    const labels = data.rows.map(
+      (row: Record<string, BaseItem>) =>
+        row[TeamItemProperty.member].text?.toString() ?? ''
+    );
+    const datasets = [
+      {
+        data: labels
+          .map((person: string) =>
+            data.rows
+              .filter(
+                (row: Record<string, BaseItem>) =>
+                  row[TeamItemProperty.member].text === person
+              )
+              .map((row: Record<string, BaseItem>) =>
+                Number(row[TeamItemProperty.doneOrClosed].text)
+              )
+          )
+          .flat(),
+      },
+    ];
+    return {
+      datasets: datasets,
+      labels: labels.map((person: string) => this.#removeMailFromName(person)),
+    };
+  }
+
+  /**
+   * Generates a scatter chart where each point represents a feature in a sprint.
+   * The x-axis is the sprint index, and the y-axis is the number of tasks
+   * in that sprint.
+   *
+   * @param reportBySprint - The report data grouped by sprint.
+   * @returns An array of datasets for a scatter chart.
+   */
+  getFeaturesBySprint(reportBySprint: Record<string, Row[]>[]) {
+    const sprints: string[] = reportBySprint.map(
+      (item: Record<string, Row[]>) => Object.keys(item)[0]
+    );
+    const features = [
+      ...new Set(
+        reportBySprint
+          .map(
+            (item: Record<string, Row[]>, index: number) => item[sprints[index]]
+          )
+          .flat()
+          .map((row: Row) => row[HeadersToCheck.FEATURE])
+      ),
+    ];
+    const dataset = features.map((feature: string) => {
+      return {
+        label: feature,
+        pointRadius: 10,
+
+        data: reportBySprint
+          .map((item: Record<string, Row[]>, index: number) => {
+            const row = item[sprints[index]];
+            return {
+              x: index,
+              y: row.filter(
+                (row: Row) =>
+                  row[HeadersToCheck.FEATURE] === feature &&
+                  this.getClosedData(row)
+              ).length,
+            };
+          })
+          .filter((item) => item.y > 0),
+      };
+    });
+    return dataset;
+  }
+
+  /**
+   * Generates a radar chart data structure where each dataset corresponds to a team member
+   * and each axis of the radar chart represents a feature.
+   *
+   * @param data - EfficiencyTable containing team efficiency data including features.
+   * @returns RadarChart - An object containing labels for features and datasets for each team member.
+   */
+
+  getFeaturesByTeamMember(data: EfficiencyTable): RadarChart {
+    const team = data.efficiency.teamEfficiency ?? [];
+    const labels = [
+      ...new Set(
+        team
+          .map((efficincy: Efficiency) => efficincy.featuresNames ?? [])
+          .flat()
+      ),
+    ];
+    const datasets = team.map((item: Efficiency) => {
+      return {
+        label: this.#removeMailFromName(item.member?.value?.toString() ?? ''),
+        data: labels.map((feature: string) => {
+          const featureItem = item.features?.find(
+            (featureItem: BaseItem) => featureItem.text === feature
+          );
+          return Number(featureItem?.value);
+        }),
+      };
+    });
+    return {
+      labels: labels,
+      datasets: datasets,
+    };
+  }
+
+  getInitialEstimation(estimationByFeature: InitialEstimation[]): BarChart {
+    const features = estimationByFeature.map(
+      (item: InitialEstimation) => item.feature
+    );
+    const initial = features.map(
+      (feature: string) =>
+        estimationByFeature.find(
+          (item: InitialEstimation) => item.feature === feature
+        )?.initialEstimated ?? 0
+    );
+    const estimated = features.map(
+      (feature: string) =>
+        estimationByFeature.find(
+          (item: InitialEstimation) => item.feature === feature
+        )?.estimated ?? 0
+    );
+    const invested = features.map(
+      (feature: string) =>
+        estimationByFeature.find(
+          (item: InitialEstimation) => item.feature === feature
+        )?.invested ?? 0
+    );
+    return {
+      data: {
+        labels: features,
+        datasets: [
+          {
+            data: initial,
+            label: 'Estimación inicial',
+            backgroundColor: COLOR.INITIAL,
+          },
+          {
+            data: estimated,
+            label: 'Estimación real',
+            backgroundColor: COLOR.ESTIMATED,
+          },
+          {
+            data: invested,
+            label: 'Horas invertidas',
+            backgroundColor: COLOR.INVESTED,
+          },
+        ],
+      },
     };
   }
 

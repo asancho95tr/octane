@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    column-gap: 16px;
+    &__form {
+        display: flex;
+        flex-direction: column;
+        ul {
+            width: max-content;
+            padding-left: 0;
+            li {
+                display: flex;
+                column-gap: 8px;
+                div {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    column-gap: 8px;
+                    .container__form__input {
+                        width: 40px;
+                    }
+                }
+            }
+        }
+    }
+    &__chart {
+        width: 100%;
+    }
+}

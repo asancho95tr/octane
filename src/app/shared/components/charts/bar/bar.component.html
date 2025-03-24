@@ -1,0 +1,7 @@
+<h2>{{ title }}</h2>
+<canvas baseChart
+        [data]="data.data"
+        [options]="data.options === undefined ? options : data.options"
+        [legend]="data.legend === undefined ? legend : data.legend"
+        [type]="'bar'">
+</canvas>

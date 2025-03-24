@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="container__form">
+    <ul>
+      <li *ngFor="let estimation of data">
+        <div>
+          <span>{{ estimation.feature }}:</span>
+          <input
+            class="container__form__input"
+            appearance="outline"
+            matInput
+            [(ngModel)]="estimation.initialEstimated"
+          />
+        </div>
+      </li>
+    </ul>
+
+    <button
+      type="button"
+      color="primary"
+      mat-raised-button
+      (click)="refreshChart(true)"
+    >
+      <mat-icon>refresh</mat-icon>
+      Recalcular
+    </button>
+  </div>
+
+  <div class="container__chart card">
+    <app-bar-chart
+      *ngIf="dataset() as dataset"
+      title="Comparación con estimación inicial"
+      [data]="dataset"
+    ></app-bar-chart>
+  </div>
+</div>
+
+<!-- 
+Comparar con estimación inicial
+Home	128
+Notificaciones y comunicaciones	218
+Mis trámites	147
+Mis carnets	187
+Mis citas	57
+Deudas y pagos	180
+Oposiciones	154
+Discapacidad y dependencia	73
+Donante de sangre	44
+Accesibilidad	146
+Librería componentes	146
+General	384 -->

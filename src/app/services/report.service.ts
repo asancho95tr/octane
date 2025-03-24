@@ -8,6 +8,7 @@ import { ReportBaseService } from './report-base.service';
 import { ReportBacklogService } from './report-backlog.service';
 import { ReportProjectService } from './report-project.service';
 import { ReportTeamService } from './report-team.service';
+import { ReportInitialEstimationService } from './report-initial-estimation.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class ReportService extends ReportBaseService {
   constructor(
     private _fileService: FileService,
     private _reportBacklogService: ReportBacklogService,
+    private _reportInitialEstimationService: ReportInitialEstimationService,
     private _reportProjectService: ReportProjectService,
     private _reportTeamService: ReportTeamService
   ) {
@@ -55,6 +57,8 @@ export class ReportService extends ReportBaseService {
     });
     return {
       backlog: this._reportBacklogService.getBacklog(data, sprints),
+      initialEstimation:
+        this._reportInitialEstimationService.getEstimationByFeature(data),
       team: this._reportTeamService.getTeamEfficiency(dataWithEfficiency),
       project:
         this._reportProjectService.getProjectEfficiency(dataWithEfficiency),
