@@ -30,17 +30,8 @@
     margin: 16px;
     .charts {
       padding: 16px 0;
-      padding-right: 16px;
       display: flex;
       column-gap: 16px;
-    }
-  }
-}
-
-@supports (-moz-appearance: none) {
-  .container__collapsable {
-    .charts {
-      padding-right: 0;
     }
   }
 }
