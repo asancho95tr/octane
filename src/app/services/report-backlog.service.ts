@@ -64,6 +64,9 @@ export class ReportBacklogService extends ReportBaseService {
         const team = [
           ...new Set(itemsSprint.map((element: Row) => this.getOwner(element))),
         ];
+        team.sort((a: string, b: string) =>
+          a.toLowerCase().localeCompare(b.toLowerCase())
+        );
         const tasksByTeamMember = team.map((member: string) => {
           const tasks = itemsSprint.filter(
             (element: Row) => this.getOwner(element) === member

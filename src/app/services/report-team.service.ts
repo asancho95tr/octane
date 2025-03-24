@@ -26,6 +26,9 @@ export class ReportTeamService extends ReportBaseService {
         data.map((element: Row) => this.getOwner(element)) as string[]
       ),
     ];
+    teamMembers.sort((a: string, b: string) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    );
     const efficiency: Efficiency = this.getEfficiency(data);
     efficiency.teamEfficiency = [];
     teamMembers.forEach((member: string) => {
