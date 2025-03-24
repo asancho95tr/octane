@@ -3,7 +3,6 @@ import { ReportBaseService } from './report-base.service';
 import { Row } from '@models/interfaces/row.model';
 import { ReportChartService } from './report-chart.service';
 import { InitialEstimation } from '@models/interfaces/initial-estimation.model';
-import { HeadersToCheck } from '@models/enums/headers-to-check.enum';
 import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
 
 @Injectable({

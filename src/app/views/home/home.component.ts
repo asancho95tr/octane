@@ -28,7 +28,6 @@ import { HomeTeamTasksComponent } from './components/team-tasks/team-tasks.compo
 import { HomeBacklogChartsComponent } from './components/backlog-charts/backlog-charts.component';
 import { HomeTeamFeaturesComponent } from './components/team-features/team-features.component';
 import { HomeFeaturesSprintComponent } from './components/features-sprint/features-sprint.component';
-import { BarChartComponent } from '../../shared/components/charts/bar/bar.component';
 import { HomeInitialEstimationComponent } from './components/initial-estimation/initial-estimation.component';
 
 @Component({
@@ -98,7 +97,7 @@ export class HomeComponent {
    */
 
   downloadTemplate() {
-    let link = document.createElement('a');
+    const link = document.createElement('a');
     link.setAttribute('type', 'hidden');
     link.href = 'assets/templates/template.xlsx';
     link.download = 'template.xlsx';

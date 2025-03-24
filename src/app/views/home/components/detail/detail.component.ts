@@ -42,7 +42,7 @@ export class HomeDetailComponent
   dataSource = new MatTableDataSource<Record<string, BaseItem>>();
   originalOrder = new MatTableDataSource<Record<string, BaseItem>>();
 
-  @Output() close = new EventEmitter<void>();
+  @Output() handleClose = new EventEmitter<void>();
 
   ngOnChanges() {
     this.dataSource.data = this.data?.rows;
@@ -94,6 +94,6 @@ export class HomeDetailComponent
   }
 
   closeDetail() {
-    this.close.emit();
+    this.handleClose.emit();
   }
 }

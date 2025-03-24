@@ -5,8 +5,6 @@ import { Row } from '@models/interfaces/row.model';
 import { Efficiency } from '@models/interfaces/efficiency.model';
 import { TEAM_EFICIENCY_HEADERS } from '@utils/static.data';
 import { Header } from '@models/interfaces/header.model';
-import { ENDED_PHASES } from '@shared/utils/config.data';
-import { HeadersToCheck } from '@models/enums/headers-to-check.enum';
 
 @Injectable({
   providedIn: 'root',

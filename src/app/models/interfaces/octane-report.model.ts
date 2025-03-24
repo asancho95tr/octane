@@ -1,4 +1,3 @@
-import { BarChart } from '@shared/models/bar.interface';
 import { BaseTable, EfficiencyTable } from './base-table.model';
 import { InitialEstimation } from './initial-estimation.model';
 
