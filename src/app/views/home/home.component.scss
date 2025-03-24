@@ -35,3 +35,11 @@
     }
   }
 }
+
+@supports (-ms-ime-align: auto) {
+  .container__collapsable {
+    .charts {
+      padding-right: 16px;
+    }
+  }
+}
