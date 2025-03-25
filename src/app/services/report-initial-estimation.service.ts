@@ -4,12 +4,16 @@ import { Row } from '@models/interfaces/row.model';
 import { ReportChartService } from './report-chart.service';
 import { InitialEstimation } from '@models/interfaces/initial-estimation.model';
 import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
+import { ReportDetailService } from './report-detail.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportInitialEstimationService extends ReportBaseService {
-  constructor(private _reportChartService: ReportChartService) {
+  constructor(
+    private _reportChartService: ReportChartService,
+    private _reportDetailService: ReportDetailService
+  ) {
     super();
   }
 
@@ -37,6 +41,10 @@ export class ReportInitialEstimationService extends ReportBaseService {
       }
     );
     return estimationByFeature;
+  }
+
+  getFeatureDetail(data: Row[]) {
+    return this._reportDetailService.getDetails(data);
   }
 
   #getSummatoryByProperty(property: SummatoryKeys) {

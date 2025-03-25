@@ -20,7 +20,6 @@ export class ReportTeamService extends ReportBaseService {
    * @returns An EfficiencyTable containing the name, headers, rows, and efficiency
    *          for the team, including individual member efficiencies and features.
    */
-
   getTeamEfficiency(data: Row[]): EfficiencyTable {
     const teamMembers: string[] = [
       ...new Set(
@@ -38,14 +37,14 @@ export class ReportTeamService extends ReportBaseService {
       const dataOfMember: Row[] = data.filter(
         (element: Row) => this.getOwner(element) === member
       );
-      const features = [
+      const featuresNames = [
         ...new Set(data.map((element: Row) => this.getFeature(element))),
       ];
       efficiency.teamEfficiency?.push({
         member: { value: memberName },
         ...this.getEfficiency(dataOfMember),
-        featuresNames: features,
-        features: this.#getTasksByFeature(dataOfMember, features),
+        featuresNames: featuresNames,
+        features: this.#getInvestedHoursByFeature(dataOfMember, featuresNames),
       });
     });
 
@@ -72,21 +71,17 @@ export class ReportTeamService extends ReportBaseService {
   }
 
   /**
-   * Given a set of data and a set of features, returns an array of objects
-   * with the feature name and the number of tasks in that feature.
+   * Given a set of data and a set of features, returns an array of objects with
+   * the feature name and the total of invested hours in that feature.
    *
    * @param data The data to filter.
    * @param features The set of features to filter by.
-   * @returns An array of objects with the feature name and the number of tasks.
+   * @returns An array of objects with the feature name and the total invested hours.
    */
-  #getTasksByFeature(data: Row[], features: string[]) {
+  #getInvestedHoursByFeature(data: Row[], features: string[]) {
     return features.map((feature: string) => ({
       text: feature,
-      value: data
-        .filter(
-          (element: Row) =>
-            this.getFeature(element) === feature && this.getClosedData(element)
-        )
+      value: this.getTasksByFeature(data, feature)
         .map((element: Row) => Number(element[SummatoryKeys.INVESTED]))
         .reduce((sum: number, current: number) => sum + current, 0),
     }));

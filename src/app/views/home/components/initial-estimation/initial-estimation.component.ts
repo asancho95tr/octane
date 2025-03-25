@@ -16,6 +16,10 @@ import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { LocalStorageService } from '@core/local-storage.service';
+import { ReportInitialEstimationService } from '@services/report-initial-estimation.service';
+import { ReportDetailService } from '@services/report-detail.service';
+import { BaseTable } from '@models/interfaces/base-table.model';
+import { HomeDetailComponent } from '../detail/detail.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,14 +34,17 @@ import { LocalStorageService } from '@core/local-storage.service';
     MatIcon,
     MatInput,
     BarChartComponent,
+    HomeDetailComponent,
   ],
 })
 export class HomeInitialEstimationComponent implements OnChanges {
   @Input({ required: true }) data!: InitialEstimation[];
   dataset: WritableSignal<BarChart | undefined> = signal(undefined);
+  showDetail = signal(false);
+  detail: WritableSignal<BaseTable | undefined> = signal(undefined);
   constructor(
     private _reportChartService: ReportChartService,
-    private _localStorageService: LocalStorageService
+    private _reportInitialEstimationService: ReportInitialEstimationService
   ) {}
 
   ngOnChanges() {
@@ -63,5 +70,27 @@ export class HomeInitialEstimationComponent implements OnChanges {
     if (save) {
       localStorage.setItem('initialEstimation', JSON.stringify(this.data));
     }
+  }
+
+  loadDetail(feature: string) {
+    this.showDetail.set(false);
+    const featureData = this.data.find(
+      (value: InitialEstimation) => value.feature === feature
+    );
+    if (featureData) {
+      this.showDetail.set(true);
+      this.detail.set(
+        this._reportInitialEstimationService.getFeatureDetail(featureData.data)
+      );
+    }
+  }
+
+  /**
+   * Closes the detail view by setting the showDetail signal to false and the
+   * detail signal to undefined.
+   */
+  closeDetail() {
+    this.showDetail.set(false);
+    this.detail.set(undefined);
   }
 }

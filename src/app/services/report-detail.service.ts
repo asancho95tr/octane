@@ -28,6 +28,7 @@ export class ReportDetailService extends ReportBaseService {
       data.map((element: Row) => {
         return {
           ...element,
+          Feature: this.getFeature(element),
           estimatedVsInvested: this.getEfficiency([element], true).efficiency,
         };
       }),

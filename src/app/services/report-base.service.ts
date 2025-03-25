@@ -270,6 +270,21 @@ export class ReportBaseService {
   }
 
   /**
+   * Given a set of data and a set of features, returns an array of objects
+   * with the feature name and the number of tasks in that feature.
+   *
+   * @param data The data to filter.
+   * @param features The set of features to filter by.
+   * @returns An array of objects with the feature name and the number of tasks.
+   */
+  getTasksByFeature(data: Row[], feature: string) {
+    return data.filter(
+      (element: Row) =>
+        this.getFeature(element) === feature && this.getClosedData(element)
+    );
+  }
+
+  /**
    * Transform an array of rows into an array of objects where each key is the
    * header value and the value is an object with a `text` property. If the
    * header value is not found in the row, the key is the original key from the

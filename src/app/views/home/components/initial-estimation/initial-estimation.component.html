@@ -3,7 +3,11 @@
     <ul>
       <li *ngFor="let estimation of data">
         <div>
-          <span>{{ estimation.feature }}:</span>
+          <span
+            class="container__form__feature"
+            (click)="loadDetail(estimation.feature)"
+            >{{ estimation.feature }}:</span
+          >
           <input
             class="container__form__input"
             appearance="outline"
@@ -33,18 +37,6 @@
     ></app-bar-chart>
   </div>
 </div>
-
-<!-- 
-Comparar con estimación inicial
-Home	128
-Notificaciones y comunicaciones	218
-Mis trámites	147
-Mis carnets	187
-Mis citas	57
-Deudas y pagos	180
-Oposiciones	154
-Discapacidad y dependencia	73
-Donante de sangre	44
-Accesibilidad	146
-Librería componentes	146
-General	384 -->
+<div class="detail" *ngIf="showDetail() && detail() as detail">
+  <app-detail (handleClose)="closeDetail()" [data]="detail"></app-detail>
+</div>

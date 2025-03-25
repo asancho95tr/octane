@@ -72,7 +72,7 @@ export class HomeDetailComponent
           const aValue = a[property]?.text;
           const bValue = b[property]?.text;
           let sortValue = 0;
-          if (aValue && bValue) {
+          if ((aValue || aValue === 0) && (bValue || bValue === 0)) {
             if (typeof aValue === 'number' && typeof bValue === 'number') {
               sortValue = aValue - bValue;
             } else {
