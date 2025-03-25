@@ -5,6 +5,7 @@ import { Row } from '@models/interfaces/row.model';
 import { Efficiency } from '@models/interfaces/efficiency.model';
 import { TEAM_EFICIENCY_HEADERS } from '@utils/static.data';
 import { Header } from '@models/interfaces/header.model';
+import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -81,10 +82,13 @@ export class ReportTeamService extends ReportBaseService {
   #getTasksByFeature(data: Row[], features: string[]) {
     return features.map((feature: string) => ({
       text: feature,
-      value: data.filter(
-        (element: Row) =>
-          this.getFeature(element) === feature && this.getClosedData(element)
-      ).length,
+      value: data
+        .filter(
+          (element: Row) =>
+            this.getFeature(element) === feature && this.getClosedData(element)
+        )
+        .map((element: Row) => Number(element[SummatoryKeys.INVESTED]))
+        .reduce((sum: number, current: number) => sum + current, 0),
     }));
   }
 }
