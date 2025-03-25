@@ -265,6 +265,8 @@ export class ReportBaseService {
       case ReportHeaders.DETECTED_DEFECTS:
         classes = value === 0 ? 'need_work' : 'done';
         break;
+      default:
+        return '';
     }
     return `right ${classes}`;
   }
@@ -317,7 +319,10 @@ export class ReportBaseService {
       for (const key in row) {
         const newKey = headerMap[key] || key; // Si no hay mapeo, mantener la clave original
         if (!transformedRow[newKey] && row[key]?.text === undefined) {
-          transformedRow[newKey] = { text: row[key] };
+          transformedRow[newKey] = {
+            text: row[key],
+            class: this.getClass(row[key], key),
+          };
         } else {
           transformedRow[newKey] = row[key];
         }

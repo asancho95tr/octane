@@ -119,7 +119,12 @@ export const DETAIL_HEADERS: Header[] = [
   { text: 'Tags', value: 'tags', type: HeadersType.TEXT, hidden: true },
   { text: 'Name', value: 'name', type: HeadersType.TEXT },
   { text: 'Owner', value: 'owner', type: HeadersType.TEXT },
-  { text: 'Story points', value: 'storyPoints', type: HeadersType.TEXT },
+  {
+    text: 'Story points',
+    value: 'storyPoints',
+    type: HeadersType.TEXT,
+    hidden: true,
+  },
   {
     text: 'Remaining hours',
     value: 'remainingHours',
