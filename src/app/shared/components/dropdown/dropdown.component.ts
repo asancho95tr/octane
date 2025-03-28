@@ -154,8 +154,10 @@ export class DropdownComponent implements OnChanges, ControlValueAccessor {
    */
   changeSelection() {
     this.allowAdd = false;
-    this.handleSelection.emit(this.optionCtrl.value);
-    this.onChange(this.optionCtrl.value);
+    if (this.options().includes(this.optionCtrl.value ?? '')) {
+      this.handleSelection.emit(this.optionCtrl.value);
+      this.onChange(this.optionCtrl.value);
+    }
   }
 
   /**
