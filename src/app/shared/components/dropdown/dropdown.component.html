@@ -1,0 +1,33 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [formControl]="optionCtrl"
+    (keyup)="allowAdd = true"
+    (selectionchange)="changeSelection()"
+    [matAutocomplete]="auto"
+    (blur)="onTouched()"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of options()" [value]="option">
+      {{ option }}
+      <button
+        *ngIf="allowRemove"
+        mat-icon-button
+        color="warn"
+        (click)="removeOption($event, option)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<button
+  mat-raised-button
+  color="primary"
+  [disabled]="!allowAdd"
+  (click)="addOption()"
+>
+  Añadir
+</button>

@@ -146,12 +146,13 @@ export const DETAIL_HEADERS: Header[] = [
   },
 ];
 
-export const KeysText: any = {
-  ceremonias: 'Tareas tipo',
-  minEstimacionVsInvertido: 'Estimado=Incurrido',
-  nombreTipoPrincipal: 'Valor tipo tarea principal',
-  nombreTipoBug: 'Valor tipo tarea bug',
-  fasesTerminadas: 'Fases terminadas',
-  eficiencia: '% Estimado vs incurrido',
-  ratioBugs: 'Ratio bugs',
+export const KeysText: Record<string, string> = {
+  ceremonies: 'Tareas tipo',
+  estimatedVsInvested: 'Estimado=Incurrido',
+  mainName: 'Valor tipo tarea principal',
+  defectName: 'Valor tipo tarea bug',
+  closedPhases: 'Fases terminadas',
+  efficiency: '% Estimado vs incurrido',
+  defectRatio: 'Ratio bugs',
+  showEfficiency: 'Mostrar eficiencia',
 };

@@ -51,7 +51,8 @@ export class ReportTeamService extends ReportBaseService {
     return {
       name: 'Tareas por persona',
       headers: TEAM_EFICIENCY_HEADERS.filter(
-        (header: Header) => !header.hidden
+        (header: Header) =>
+          !header.hidden && this.checkIfCanShowEfficiency(header.value)
       ),
       rows: teamMembers.map((member: string) => {
         const memberName: string =

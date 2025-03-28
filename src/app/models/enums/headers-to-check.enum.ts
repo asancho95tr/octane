@@ -14,5 +14,4 @@ export enum HeadersToCheck {
   ASSIGNED = 'Assigned',
   TYPE = 'Type',
   DETECTED_DEFECTS = 'Numero defectos encontrados',
-  EFICIENCY = 'efficiency',
 }

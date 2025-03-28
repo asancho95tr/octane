@@ -15,9 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
-import { LocalStorageService } from '@core/local-storage.service';
 import { ReportInitialEstimationService } from '@services/report-initial-estimation.service';
-import { ReportDetailService } from '@services/report-detail.service';
 import { BaseTable } from '@models/interfaces/base-table.model';
 import { HomeDetailComponent } from '../detail/detail.component';
 

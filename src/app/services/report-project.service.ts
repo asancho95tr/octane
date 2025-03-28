@@ -20,7 +20,10 @@ export class ReportProjectService extends ReportBaseService {
     const efficiency: Efficiency = this.getEfficiency(data);
     return {
       name: 'Proyecto',
-      headers: EFFICIENY_HEADERS.filter((header: Header) => !header.hidden),
+      headers: EFFICIENY_HEADERS.filter(
+        (header: Header) =>
+          !header.hidden && this.checkIfCanShowEfficiency(header.value)
+      ),
       rows: [
         {
           tasksWithoutSprint: efficiency.tasksWithoutSprint,

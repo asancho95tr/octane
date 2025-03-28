@@ -1,7 +1,7 @@
 import { Phase } from '@models/enums/phase.enum';
 import { Configuration } from '@models/interfaces/config.model';
 
-export let ENDED_PHASES: string[] = [
+export const ENDED_PHASES: string[] = [
   Phase.CLOSED,
   Phase.DONE,
   Phase.FIXED,
@@ -10,7 +10,7 @@ export let ENDED_PHASES: string[] = [
 export let MIN_ESTIMATION_VS_INVESTED: number = 20;
 export let NAME_MAIN_TYPE: string = 'User Story';
 export let NAME_BUG_TYPE: string = 'Defect';
-export let CEREMONIES: string[] = [
+export const CEREMONIES: string[] = [
   'CodeReview',
   'Daily',
   'Planning',
@@ -19,23 +19,17 @@ export let CEREMONIES: string[] = [
 ];
 export let RATIO_BUGS: number = 60;
 export let EFICIENCY: number = 10;
+export let SHOW_EFICIENCY: boolean = true;
 
 export function getCurrentConfig(): Configuration {
   return {
-    minEstimacionVsInvertido: MIN_ESTIMATION_VS_INVESTED,
-    ratioBugs: RATIO_BUGS,
-    ceremonias: CEREMONIES,
-    eficiencia: EFICIENCY,
-    nombreTipoBug: NAME_BUG_TYPE,
-    nombreTipoPrincipal: NAME_MAIN_TYPE,
-    fasesTerminadas: ENDED_PHASES,
+    estimatedVsInvested: MIN_ESTIMATION_VS_INVESTED,
+    defectRatio: RATIO_BUGS,
+    efficiency: EFICIENCY,
+    defectName: NAME_BUG_TYPE,
+    mainName: NAME_MAIN_TYPE,
+    showEfficiency: SHOW_EFICIENCY,
   };
-}
-
-export function setEndedPhases(_newValue: string[] | undefined) {
-  if (_newValue) {
-    ENDED_PHASES = _newValue;
-  }
 }
 
 export function setMinEstimatedVsInvested(_newValue: number | undefined) {
@@ -56,12 +50,6 @@ export function setNameBugType(_newValue: string | undefined) {
   }
 }
 
-export function setCeremonies(_newValue: string[] | undefined) {
-  if (_newValue) {
-    CEREMONIES = _newValue;
-  }
-}
-
 export function setRatioBugs(_newValue: number | undefined) {
   if (_newValue) {
     RATIO_BUGS = _newValue;
@@ -71,5 +59,11 @@ export function setRatioBugs(_newValue: number | undefined) {
 export function setEficiency(_newValue: number | undefined) {
   if (_newValue) {
     EFICIENCY = _newValue;
+  }
+}
+
+export function setShowEficiency(_newValue: boolean | undefined) {
+  if (_newValue !== undefined) {
+    SHOW_EFICIENCY = _newValue;
   }
 }

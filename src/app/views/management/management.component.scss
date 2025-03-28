@@ -6,19 +6,23 @@
   justify-content: flex-start;
   .container__header {
     display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-    width: fit-content;
-    a {
-      width: fit-content;
-    }
   }
-  .container__form {
+
+  .container__body {
     display: flex;
-    width: fit-content;
     flex-direction: column;
-    .container__form__import {
-      margin-bottom: 22px;
+    column-gap: 16px;
+
+    &__form {
+      align-self: flex-start;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 800px;
+      mat-slide-toggle {
+        align-self: center;
+        margin-bottom: 24px;
+      }
     }
   }
 }

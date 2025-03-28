@@ -5,12 +5,14 @@ import { SummatoryKeys } from '@models/enums/summatory-keys.enum';
 import { BaseItem } from '@models/interfaces/base-item.model';
 import { Efficiency } from '@models/interfaces/efficiency.model';
 import { Header } from '@models/interfaces/header.model';
+import { BacklogItemProperty } from '@models/interfaces/octane-report.model';
 import { Row } from '@models/interfaces/row.model';
 import {
   CEREMONIES,
   EFICIENCY,
   ENDED_PHASES,
   RATIO_BUGS,
+  SHOW_EFICIENCY,
 } from '@utils/config.data';
 
 @Injectable({
@@ -269,6 +271,13 @@ export class ReportBaseService {
         return '';
     }
     return `right ${classes}`;
+  }
+
+  checkIfCanShowEfficiency(column: string) {
+    return (
+      (column === BacklogItemProperty.estimatedVsInvested && SHOW_EFICIENCY) ||
+      column !== BacklogItemProperty.estimatedVsInvested
+    );
   }
 
   /**

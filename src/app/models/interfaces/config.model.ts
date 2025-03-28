@@ -1,11 +1,10 @@
 export interface Configuration {
-  ceremonias?: string[];
-  minEstimacionVsInvertido?: number;
-  nombreTipoPrincipal?: string;
-  nombreTipoBug?: string;
-  fasesTerminadas?: string[];
-  eficiencia?: number;
-  ratioBugs?: number;
+  estimatedVsInvested: number;
+  defectRatio: number;
+  efficiency: number;
+  defectName: string;
+  mainName: string;
+  showEfficiency: boolean;
 }
 
 export interface ProjectConfiguration {

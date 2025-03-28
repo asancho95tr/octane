@@ -36,7 +36,10 @@ export class ReportDetailService extends ReportBaseService {
     );
     return {
       name: 'Detalles',
-      headers: DETAIL_HEADERS.filter((header: Header) => !header.hidden),
+      headers: DETAIL_HEADERS.filter(
+        (header: Header) =>
+          !header.hidden && this.checkIfCanShowEfficiency(header.value)
+      ),
       rows: rows,
     };
   }
