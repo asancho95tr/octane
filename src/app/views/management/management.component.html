@@ -31,11 +31,6 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>{{ KeysText["efficiency"] }}</mat-label>
-        <input matInput type="number" formControlName="efficiency" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
         <mat-label>{{ KeysText["defectName"] }}</mat-label>
         <input matInput formControlName="defectName" required />
       </mat-form-field>
@@ -43,6 +38,11 @@
       <mat-form-field appearance="outline">
         <mat-label>{{ KeysText["mainName"] }}</mat-label>
         <input matInput formControlName="mainName" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ KeysText["efficiency"] }}</mat-label>
+        <input matInput type="number" formControlName="efficiency" required />
       </mat-form-field>
 
       <mat-slide-toggle formControlName="showEfficiency">{{

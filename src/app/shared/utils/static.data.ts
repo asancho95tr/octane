@@ -154,5 +154,5 @@ export const KeysText: Record<string, string> = {
   closedPhases: 'Fases terminadas',
   efficiency: '% Estimado vs incurrido',
   defectRatio: 'Ratio bugs',
-  showEfficiency: 'Mostrar eficiencia',
+  showEfficiency: 'Mostrar "Estimado vs incurrido"',
 };
