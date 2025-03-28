@@ -24,6 +24,10 @@ export class ManagementService {
   defaultConfig: Configuration = getCurrentConfig();
   lastConfig: string = DefaultConfigName;
 
+  /**
+   * Gets the list of all projects names from the local storage.
+   * @returns An array of strings with the names of all the projects.
+   */
   get projectsNamesList(): string[] {
     return this.getConfigurations().map(
       (config: ProjectConfiguration) => config.name
@@ -90,17 +94,34 @@ export class ManagementService {
     return [];
   }
 
+  /**
+   * Updates the last configuration in local storage.
+   * @param name The name of the configuration to set as the last one.
+   */
   setLastConfig(name: string) {
     this.lastConfig = name;
     localStorage.setItem(LocalStorageKeys.LAST_CONFIG, name);
   }
 
+  /**
+   * Retrieves a project configuration by its name.
+   *
+   * @param {string} name The name of the configuration to retrieve.
+   * @returns {ProjectConfiguration | undefined} The configuration with the given
+   * name, or undefined if no configuration with that name is found.
+   */
   getConfigurationByName(name: string): ProjectConfiguration | undefined {
     return this.getConfigurations().find(
       (config: ProjectConfiguration) => config.name === name
     );
   }
 
+  /**
+   * Updates or adds a project configuration in local storage.
+   *
+   * @param {string} name The name of the configuration to update or add.
+   * @param {Configuration} configuration The configuration data to save.
+   */
   setConfigutation(name: string, configuration: Configuration) {
     const project: ProjectConfiguration = {
       name: name,

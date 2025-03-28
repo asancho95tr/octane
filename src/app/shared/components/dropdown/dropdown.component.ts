@@ -65,25 +65,61 @@ export class DropdownComponent implements OnChanges, ControlValueAccessor {
   onChange: (value: string | null) => void = () => {};
   onTouched: () => void = () => {};
 
+  /**
+   * Called when any data-bound property of a directive changes.
+   * If `defaultSelectedOption` is provided, it sets this value
+   * to the form control (`optionCtrl`).
+   */
+
   ngOnChanges() {
     if (this.defaultSelectedOption) {
       this.optionCtrl.setValue(this.defaultSelectedOption);
     }
   }
 
+  /**
+   * Part of the ControlValueAccessor interface, this function is called
+   * by Angular when the value of the component changes.
+   * It sets the value of the form control (`optionCtrl`) to the given
+   * value, but does not emit an event.
+   * @param value the new value of the component.
+   */
   writeValue(value: string | null): void {
     this.optionCtrl.setValue(value, { emitEvent: false });
   }
 
+  /**
+   * Part of the ControlValueAccessor interface, this function is called
+   * by Angular to register a callback that will be executed whenever
+   * the value of the component changes. The given function will be
+   * called with the new value as its argument.
+   * @param fn the callback function to register
+   */
   registerOnChange(fn: (value: string | null) => void): void {
     this.onChange = fn;
     this.optionCtrl.valueChanges.subscribe(fn);
   }
 
+  /**
+   * Part of the ControlValueAccessor interface, this function is called
+   * by Angular to register a callback that will be executed when the
+   * component is touched or blurred. The given function will be called
+   * when the user interacts with the form control in a way that triggers
+   * a touch event.
+   * @param fn the callback function to register
+   */
+
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
+  /**
+   * Part of the ControlValueAccessor interface, this function is called
+   * by Angular to enable or disable the component based on the value
+   * of the given boolean argument.
+   * @param isDisabled `true` if the component should be disabled, and
+   * `false` if the component should be enabled.
+   */
   setDisabledState(isDisabled: boolean): void {
     if (isDisabled) {
       this.optionCtrl.disable();
@@ -92,6 +128,13 @@ export class DropdownComponent implements OnChanges, ControlValueAccessor {
     }
   }
 
+  /**
+   * Adds the current value of the form control (`optionCtrl`) to the list
+   * of options, sets the value of the form control to the new value,
+   * emits an `handleAdd` event with the new option, and calls the
+   * `onChange` callback with the new value.
+   * Sets `allowAdd` to `false` after adding the option.
+   */
   addOption() {
     const value = this.optionCtrl.value?.trim();
     const options = this.options();
@@ -104,12 +147,23 @@ export class DropdownComponent implements OnChanges, ControlValueAccessor {
     this.allowAdd = false;
   }
 
+  /**
+   * Called when the selection changes.
+   * Sets `allowAdd` to `false` and emits a `handleSelection` event with the new value.
+   * Also calls the `onChange` callback with the new value.
+   */
   changeSelection() {
     this.allowAdd = false;
     this.handleSelection.emit(this.optionCtrl.value);
     this.onChange(this.optionCtrl.value);
   }
 
+  /**
+   * Called when the user clicks on the delete button of an option.
+   * Filters out the given `optionToRemove` from the list of options,
+   * and emits a `handleRemove` event with the new list of options.
+   * Also stops the event propagation.
+   */
   removeOption(event: MouseEvent, optionToRemove: string) {
     event.stopPropagation();
     this.options.update((opts) => opts.filter((opt) => opt !== optionToRemove));
