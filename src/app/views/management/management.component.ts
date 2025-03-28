@@ -89,10 +89,6 @@ export class ManagementComponent {
 
       if (this.projectName !== projectName) {
         this.projectName = projectName;
-        this._toastService.success(
-          `Configuración "${projectName}" cargada correctamente`,
-          ''
-        );
       }
     }
   }
