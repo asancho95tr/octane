@@ -71,6 +71,7 @@ export class ManagementService {
         )?.configuration ?? this.defaultConfig
       );
     }
+    this.setConfigutation(DefaultConfigName, this.defaultConfig);
     return this.defaultConfig;
   }
 
